@@ -10,8 +10,8 @@ ax = fig.add_subplot(111, projection='3d')
 # Current position - calibrated to real values
 # x: 50 GT CO2e/yr
 # y: 2.5% growth (middle of 2-3% range)
-# z: Starting with relatively high material use (0.8 on 0-1 scale)
-current_pos = np.array([50, 2.5, 0.8])  # CO2e, Growth, Materials
+# z: 106 billion tonnes/yr (2024 material use)
+current_pos = np.array([50, 2.5, 106])  # CO2e, Growth, Materials
 
 # Plot current position
 ax.scatter([current_pos[0]], [current_pos[2]], [current_pos[1]],
@@ -20,13 +20,13 @@ ax.scatter([current_pos[0]], [current_pos[2]], [current_pos[1]],
 # Set labels and title
 ax.set_xlabel('CO2e Emissions (GT/yr)')
 ax.set_zlabel('Growth (%/yr)')
-ax.set_ylabel('Material Use (relative scale)')
+ax.set_ylabel('Material Use (billion tonnes/yr)')
 ax.set_title('Future Pathways: Interactive 3D Visualization')
 
 # Set axis limits with calibrated scales
-ax.set_xlim([-20, 60])    # CO2e: from -20 GT/yr to 60 GT/yr
-ax.set_ylim([0, 1.5])     # Material use: relative scale 0-1.5
-ax.set_zlim([-5, 5])      # Growth: -5% to +5% per year
+ax.set_xlim([-20, 60])     # CO2e: from -20 GT/yr to 60 GT/yr
+ax.set_ylim([0, 200])      # Material use: 0 to 200 billion tonnes/yr
+ax.set_zlim([-5, 5])       # Growth: -5% to +5% per year
 
 # Important: Reverse the direction of x-axis ticks
 ax.invert_xaxis()
