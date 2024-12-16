@@ -7,7 +7,7 @@ from matplotlib.widgets import CheckButtons
 fig = plt.figure(figsize=(15, 10))
 ax = fig.add_subplot(111, projection='3d')
 
-# Generate paths data
+# Generate paths data - using 37 points for 2024-2060
 years = np.linspace(2024, 2060, 37)
 t = np.linspace(0, 1, 37)
 
@@ -35,6 +35,21 @@ em_x = current_pos[0] - 65 * t - 5 * t**2  # Start at 50 GT/yr
 em_y = current_pos[1] + 2 * t**2  # Start at 2.5% growth
 em_z = current_pos[2] + 40 * t * np.exp(-3*t) - 40 * t  # Start at 106 billion tonnes
 
+# Create dictionary to store all artists (lines, points, and texts) for each path
+path_artists = {}
+
+# Plot paths with year markers function
+def plot_path_with_years(x, y, z, color, label):
+    line, = ax.plot(x, z, y, color=color, label=label, linewidth=2)
+    artists = [line]
+    # Add year markers every 10 years
+    for i in range(0, len(years), 10):
+        if i > 0:  # Skip 2024 as it's marked by the red dot
+            point = ax.scatter(x[i], z[i], y[i], color=color, s=30)
+            text = ax.text(x[i], z[i], y[i], f'{int(years[i])}', color=color)
+            artists.extend([point, text])
+    return artists
+
 # Plot current position
 ax.scatter([current_pos[0]], [current_pos[2]], [current_pos[1]],
           color='red', s=100, label='Current Position (2024)')
@@ -47,19 +62,19 @@ paths = {
     'Eco-modernist Utopia': {'x': em_x, 'y': em_y, 'z': em_z, 'color': 'cyan'}
 }
 
-# Plot paths and store line objects
-lines = {}
+# Plot paths and store all artists
 for name, path in paths.items():
-    line, = ax.plot(path['x'], path['z'], path['y'], color=path['color'], label=name, linewidth=2)
-    lines[name] = line
+    path_artists[name] = plot_path_with_years(path['x'], path['y'], path['z'], path['color'], name)
 
 # Create checkbuttons with no frame
 rax = plt.axes([0.02, 0.4, 0.12, 0.2])
-rax.set_frame_on(False)  # Remove the box
+rax.set_frame_on(False)
 check = CheckButtons(rax, list(paths.keys()), [True] * len(paths))
 
 def func(label):
-    lines[label].set_visible(not lines[label].get_visible())
+    # Toggle visibility for all artists associated with the path
+    for artist in path_artists[label]:
+        artist.set_visible(not artist.get_visible())
     plt.draw()
 
 check.on_clicked(func)
