@@ -3,19 +3,18 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.widgets import CheckButtons
 
-# Create larger figure with better aspect ratio
+# Create figure with adjusted size
 fig = plt.figure(figsize=(15, 10))
-
-# Create 3D axes with more plot area
 ax = fig.add_subplot(111, projection='3d')
 
-# Generate paths data - now using 36 points for 36 years (2024-2060)
+# Generate paths data
 years = np.linspace(2024, 2060, 37)
 t = np.linspace(0, 1, 37)
 
 # Current position
 current_pos = np.array([50, 2.5, 106])  # CO2e, Growth, Materials
 
+# Define all paths
 # Business As Usual path
 bau_x = 50 + 10 * t  # CO2e increases
 bau_y = 2.5 - 3.5 * t  # Growth decreases
@@ -36,30 +35,40 @@ em_x = current_pos[0] - 65 * t - 5 * t**2  # Start at 50 GT/yr
 em_y = current_pos[1] + 2 * t**2  # Start at 2.5% growth
 em_z = current_pos[2] + 40 * t * np.exp(-3*t) - 40 * t  # Start at 106 billion tonnes
 
-# Plot paths with year markers
-def plot_path_with_years(x, y, z, color, label):
-    ax.plot(x, z, y, color=color, label=label, linewidth=2)
-    # Add year markers every 10 years
-    for i in range(0, len(years), 10):
-        if i > 0:  # Skip 2024 as it's marked by the red dot
-            ax.scatter(x[i], z[i], y[i], color=color, s=30)
-            ax.text(x[i], z[i], y[i], f'{int(years[i])}', color=color)
-
 # Plot current position
 ax.scatter([current_pos[0]], [current_pos[2]], [current_pos[1]],
           color='red', s=100, label='Current Position (2024)')
 
-# Plot paths with year markers
-plot_path_with_years(bau_x, bau_y, bau_z, 'red', 'Business As Usual')
-plot_path_with_years(dg_x, dg_y, dg_z, 'blue', 'Degrowth (Hickel)')
-plot_path_with_years(gs_x, gs_y, gs_z, 'green', 'Great Simplification (Hagens)')
-plot_path_with_years(em_x, em_y, em_z, 'cyan', 'Eco-modernist Utopia')
+# Create dictionary of paths with their properties
+paths = {
+    'Business As Usual': {'x': bau_x, 'y': bau_y, 'z': bau_z, 'color': 'red'},
+    'Degrowth (Hickel)': {'x': dg_x, 'y': dg_y, 'z': dg_z, 'color': 'blue'},
+    'Great Simplification (Hagens)': {'x': gs_x, 'y': gs_y, 'z': gs_z, 'color': 'green'},
+    'Eco-modernist Utopia': {'x': em_x, 'y': em_y, 'z': em_z, 'color': 'cyan'}
+}
+
+# Plot paths and store line objects
+lines = {}
+for name, path in paths.items():
+    line, = ax.plot(path['x'], path['z'], path['y'], color=path['color'], label=name, linewidth=2)
+    lines[name] = line
+
+# Create checkbuttons with no frame
+rax = plt.axes([0.02, 0.4, 0.12, 0.2])
+rax.set_frame_on(False)  # Remove the box
+check = CheckButtons(rax, list(paths.keys()), [True] * len(paths))
+
+def func(label):
+    lines[label].set_visible(not lines[label].get_visible())
+    plt.draw()
+
+check.on_clicked(func)
 
 # Set labels and title
-ax.set_xlabel('CO2e Emissions (GT/yr)', labelpad=10)
-ax.set_zlabel('Growth (%/yr)', labelpad=10)
-ax.set_ylabel('Material Use (billion tonnes/yr)', labelpad=10)
-ax.set_title('Future Pathways: Interactive 3D Visualization (2024-2060)', pad=20)
+ax.set_xlabel('CO2e Emissions (GT/yr)')
+ax.set_zlabel('Growth (%/yr)')
+ax.set_ylabel('Material Use (billion tonnes/yr)')
+ax.set_title('Future Pathways: Interactive 3D Visualization (2024-2060)')
 
 # Set axis limits with calibrated scales
 ax.set_xlim([-20, 60])     # CO2e: from -20 GT/yr to 60 GT/yr
@@ -69,19 +78,22 @@ ax.set_zlim([-5, 5])       # Growth: -5% to +5% per year
 # Important: Reverse the direction of x-axis ticks
 ax.invert_xaxis()
 
-# Set initial view angle for better perspective
+# Set initial view angle
 ax.view_init(elev=20, azim=45)
 
 # Add grid
 ax.grid(True)
 
-# Adjust the aspect ratio to make the plot more readable
-ax.set_box_aspect([2, 1, 1])
+# Add legend below the chart
+ax.legend(bbox_to_anchor=(0.5, -0.1), loc='upper center', ncol=3)
 
-# Move legend to lower right, outside and below the plot
-ax.legend(bbox_to_anchor=(1.0, -0.2), loc='lower right', ncol=2)
+# Add text for controls
+fig.text(0.02, 0.95, 'Controls:', fontsize=10)
+fig.text(0.02, 0.92, 'Left mouse: Rotate', fontsize=8)
+fig.text(0.02, 0.89, 'Right mouse: Zoom', fontsize=8)
+fig.text(0.02, 0.86, 'Middle mouse: Pan', fontsize=8)
 
-# Adjust layout to prevent legend from being cut off
-plt.subplots_adjust(right=0.85, bottom=0.2)
+# Adjust layout to prevent legend cutoff
+plt.subplots_adjust(bottom=0.2)
 
 plt.show()
