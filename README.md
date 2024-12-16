@@ -32,7 +32,7 @@ Based on Jason Hickel's vision of planned economic contraction:
 - Maintains basic services while reducing environmental impact
 - Emphasizes redistribution and wellbeing over GDP growth
 
-### 3. Great Simplification (Hagens)
+### 3. The Great Simplification (Hagens)
 Based on Nate Hagens's analysis of energy and resource constraints:
 - Gradual then accelerating decline in emissions as energy constraints bind
 - Increasingly negative growth as complexity reduces
@@ -100,4 +100,4 @@ Would you like me to explain any of these controls in more detail?
 ## Summary
 This three-dimensional representation helps us understand the complex relationships between economic activity, environmental impact, and resource use. It illustrates how different philosophical and practical approaches to our civilization's challenges might play out over time, and the trade-offs involved in each pathway.
 
-The visualization serves as a powerful tool for understanding the scope of change required for sustainability, the potential consequences of inaction, and the different visions for navigating our civilizational challenges. It can inform discussions about policy choices, technological development, and societal adaptation strategies.
+The visualization serves as a tool for understanding the scope of change required for sustainability, the potential consequences of inaction, and the different visions for navigating our civilizational challenges. It can inform discussions about policy choices, technological development, and societal adaptation strategies.
