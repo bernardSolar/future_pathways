@@ -96,7 +96,6 @@ Additional Tips:
 - Double-click to reset the view
 - The checkbox panel on the left lets you toggle different pathways on/off
 
-Would you like me to explain any of these controls in more detail?
 ## Summary
 This three-dimensional representation helps us understand the complex relationships between economic activity, environmental impact, and resource use. It illustrates how different philosophical and practical approaches to our civilization's challenges might play out over time, and the trade-offs involved in each pathway.
 
