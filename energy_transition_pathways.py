@@ -12,6 +12,8 @@ class PathwayVisualizer:
         self.t = np.linspace(0, 1, 37)
         self.current_pos = np.array([50, 2.5, 106])  # CO2e, Growth, Materials
         self.path_artists = {}
+        self.transition_zone_surfaces = []  # New list to store transition zone surfaces
+        self.transition_zone_text = None
         self.setup_figure()
         self.define_paths()
         self.create_transition_zone()
@@ -89,7 +91,8 @@ class PathwayVisualizer:
         # Create horizontal surfaces
         for growth in z:
             Z = np.full_like(X, growth)
-            self.ax.plot_surface(X, Y, Z, alpha=0.02, color='green')
+            surface = self.ax.plot_surface(X, Y, Z, alpha=0.02, color='green')
+            self.transition_zone_surfaces.append(surface)
 
         # Create vertical surfaces
         self._create_vertical_surfaces()
@@ -101,14 +104,16 @@ class PathwayVisualizer:
         z_wall = np.linspace(2.5, 5, 20)
         Y_wall, Z_wall = np.meshgrid(y_wall, z_wall)
         X_wall = np.full_like(Y_wall, 50)
-        self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='green')
+        surface = self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='green')
+        self.transition_zone_surfaces.append(surface)
 
         # Material use wall
         X_wall = np.linspace(-20, 50, 20)
         Z_wall = np.linspace(2.5, 5, 20)
         X_wall, Z_wall = np.meshgrid(X_wall, Z_wall)
         Y_wall = np.full_like(X_wall, 106)
-        self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='green')
+        surface = self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='green')
+        self.transition_zone_surfaces.append(surface)
 
     def plot_paths(self):
         """Plot all pathways and current position"""
@@ -133,31 +138,47 @@ class PathwayVisualizer:
         # Add year markers every 10 years
         for i in range(0, len(self.years), 10):
             if i > 0:  # Skip 2024 as it's marked by the red dot
-                point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=25)  # Changed to s=15
+                point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=25)
                 text = self.ax.text(x[i], z[i], y[i], f'{int(self.years[i])}', color=color)
                 artists.extend([point, text])
         return artists
 
     def setup_controls(self):
         """Set up the interactive controls with colored labels"""
+        # Create axes for pathway controls
         rax = plt.axes([0.02, 0.4, 0.12, 0.2])
         rax.set_frame_on(False)
 
-        # Create checkbuttons
+        # Create checkbuttons for pathways
         self.check = CheckButtons(rax, list(self.paths.keys()), [True] * len(self.paths))
 
         # Modify the appearance of each label
         for i, label in enumerate(self.check.labels):
             path_props = self.paths[label.get_text()]
-            # Set text color
             label.set_color(path_props['color'])
 
         self.check.on_clicked(self._toggle_path)
+
+        # Create separate axes for transition zone control
+        tax = plt.axes([0.02, 0.35, 0.12, 0.04])  # Position below pathway controls
+        tax.set_frame_on(False)
+
+        # Create checkbutton for transition zone
+        self.zone_check = CheckButtons(tax, ['Energy Transition Zone'], [True])
+        self.zone_check.labels[0].set_color('green')
+        self.zone_check.on_clicked(self._toggle_transition_zone)
 
     def _toggle_path(self, label):
         """Callback for toggling path visibility"""
         for artist in self.path_artists[label]:
             artist.set_visible(not artist.get_visible())
+        plt.draw()
+
+    def _toggle_transition_zone(self, label):
+        """Callback for toggling transition zone visibility"""
+        for surface in self.transition_zone_surfaces:
+            surface.set_visible(not surface.get_visible())
+        self.transition_zone_text.set_visible(not self.transition_zone_text.get_visible())
         plt.draw()
 
     def finalize_plot(self):
@@ -168,8 +189,9 @@ class PathwayVisualizer:
         self.ax.set_ylabel('Material Use (GT/yr)')
         self.ax.set_title('Future Pathways: Interactive 3D Visualization (2024-2060)')
 
-        # Add transition zone label
-        self.ax.text(0, 50, 4, "Energy\nTransition\nZone", color='green', fontsize=10)
+        # Add transition zone label and store the handle
+        self.transition_zone_text = self.ax.text(0, 50, 4, "Energy\nTransition\nZone",
+                                                 color='green', fontsize=10)
 
         # Set axis limits and view
         self.ax.set_xlim([-20, 60])
