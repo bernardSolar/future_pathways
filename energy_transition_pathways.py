@@ -12,10 +12,12 @@ class PathwayVisualizer:
         self.t = np.linspace(0, 1, 37)
         self.current_pos = np.array([50, 2.5, 106])  # CO2e, Growth, Materials
         self.path_artists = {}
-        self.green_zone_surfaces = []  # Renamed from transition_zone_surfaces
-        self.orange_zone_surfaces = []  # New list for orange zone surfaces
+        self.green_zone_surfaces = []
+        self.orange_zone_surfaces = []
+        self.red_zone_surfaces = []
         self.green_zone_text = None
         self.orange_zone_text = None
+        self.red_zone_text = None
         self.setup_figure()
         self.define_paths()
         self.create_transition_zones()
@@ -83,13 +85,13 @@ class PathwayVisualizer:
         }
 
     def create_transition_zones(self):
-        """Create both green and orange transition zone surfaces"""
+        """Create green, orange, and red transition zone surfaces"""
         # Create meshgrid for transition zones
         x = np.linspace(-20, 50, 20)
         y = np.linspace(0, 106, 20)
         X, Y = np.meshgrid(x, y)
 
-        # Create surfaces for green zone (2.5 to 4 %/yr)
+        # Create surfaces for green zone (2.5 to 5 %/yr)
         z_green = np.linspace(2.5, 5, 20)
         for growth in z_green:
             Z = np.full_like(X, growth)
@@ -103,11 +105,18 @@ class PathwayVisualizer:
             surface = self.ax.plot_surface(X, Y, Z, alpha=0.02, color='orange')
             self.orange_zone_surfaces.append(surface)
 
-        # Create vertical surfaces for both zones
+        # Create surfaces for red descent zone (-5 to 0 %/yr)
+        z_red = np.linspace(-5, 0, 20)
+        for growth in z_red:
+            Z = np.full_like(X, growth)
+            surface = self.ax.plot_surface(X, Y, Z, alpha=0.02, color='red')
+            self.red_zone_surfaces.append(surface)
+
+        # Create vertical surfaces for all zones
         self._create_vertical_surfaces()
 
     def _create_vertical_surfaces(self):
-        """Helper method to create vertical surfaces of both transition zones"""
+        """Helper method to create vertical surfaces of all transition zones"""
         # Front walls
         y_wall = np.linspace(0, 106, 20)
 
@@ -125,6 +134,13 @@ class PathwayVisualizer:
         surface = self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='orange')
         self.orange_zone_surfaces.append(surface)
 
+        # Red zone front wall
+        z_wall_red = np.linspace(-5, 0, 20)
+        Y_wall, Z_wall = np.meshgrid(y_wall, z_wall_red)
+        X_wall = np.full_like(Y_wall, 50)
+        surface = self.ax.plot_surface(X_wall, Y_wall, Z_wall, alpha=0.02, color='red')
+        self.red_zone_surfaces.append(surface)
+
         # Material use walls
         X_wall = np.linspace(-20, 50, 20)
 
@@ -141,6 +157,13 @@ class PathwayVisualizer:
         Y_wall = np.full_like(X_wall_mesh, 106)
         surface = self.ax.plot_surface(X_wall_mesh, Y_wall, Z_wall_mesh, alpha=0.02, color='orange')
         self.orange_zone_surfaces.append(surface)
+
+        # Red zone material wall
+        Z_wall = np.linspace(-5, 0, 20)
+        X_wall_mesh, Z_wall_mesh = np.meshgrid(X_wall, Z_wall)
+        Y_wall = np.full_like(X_wall_mesh, 106)
+        surface = self.ax.plot_surface(X_wall_mesh, Y_wall, Z_wall_mesh, alpha=0.02, color='red')
+        self.red_zone_surfaces.append(surface)
 
     def plot_paths(self):
         """Plot all pathways and current position"""
@@ -187,13 +210,14 @@ class PathwayVisualizer:
         self.check.on_clicked(self._toggle_path)
 
         # Create separate axes for transition zone controls
-        tax = plt.axes([0.02, 0.35, 0.12, 0.08])  # Position below pathway controls
+        tax = plt.axes([0.02, 0.35, 0.12, 0.12])  # Increased height for three buttons
         tax.set_frame_on(False)
 
-        # Create checkbuttons for both zones
-        self.zone_check = CheckButtons(tax, ['Energy Transition Zone', 'Intermediate Zone'], [True, True])
+        # Create checkbuttons for all three zones
+        self.zone_check = CheckButtons(tax, ['Energy Transition Zone', 'Intermediate Zone', 'Descent Zone'], [True, True, True])
         self.zone_check.labels[0].set_color('green')
         self.zone_check.labels[1].set_color('orange')
+        self.zone_check.labels[2].set_color('red')
         self.zone_check.on_clicked(self._toggle_zones)
 
     def _toggle_path(self, label):
@@ -212,6 +236,10 @@ class PathwayVisualizer:
             for surface in self.orange_zone_surfaces:
                 surface.set_visible(not surface.get_visible())
             self.orange_zone_text.set_visible(not self.orange_zone_text.get_visible())
+        elif label == 'Descent Zone':
+            for surface in self.red_zone_surfaces:
+                surface.set_visible(not surface.get_visible())
+            self.red_zone_text.set_visible(not self.red_zone_text.get_visible())
         plt.draw()
 
     def finalize_plot(self):
@@ -223,10 +251,12 @@ class PathwayVisualizer:
         self.ax.set_title('Future Pathways: 2024-2060')
 
         # Add zone labels and store the handles
-        self.green_zone_text = self.ax.text(0, 50, 3.5, "Energy\nTransition\nZone",
+        self.green_zone_text = self.ax.text(0, 50, 3.75, "Energy\nTransition\nZone",
                                           color='green', fontsize=10)
-        self.orange_zone_text = self.ax.text(0, 50, 1.5, "Intermediate\nTransition\nZone",
+        self.orange_zone_text = self.ax.text(0, 50, 1.25, "Intermediate\nTransition\nZone",
                                            color='orange', fontsize=10)
+        self.red_zone_text = self.ax.text(0, 50, -2.5, "Descent\nZone",
+                                        color='red', fontsize=10)
 
         # Set axis limits and view
         self.ax.set_xlim([-20, 60])
