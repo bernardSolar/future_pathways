@@ -54,7 +54,7 @@ class PathwayVisualizer:
                 'x': self.current_pos[0] - 65 * self.t - 5 * self.t ** 2,
                 'y': self.current_pos[1] + 2 * self.t ** 2,
                 'z': self.current_pos[2] + 40 * self.t * np.exp(-3 * self.t) - 40 * self.t,
-                'color': 'pink',
+                'color': 'grey',
                 'marker': 'D'  # diamond
             },
             'Way et al. Fast Transition': {
@@ -187,7 +187,7 @@ class PathwayVisualizer:
         self.ax.set_xlabel('CO2e Emissions (GT/yr)')
         self.ax.set_zlabel('Growth (%/yr)')
         self.ax.set_ylabel('Material Use (GT/yr)')
-        self.ax.set_title('Future Pathways: Interactive 3D Visualization (2024-2060)')
+        self.ax.set_title('Future Pathways: 2024-2060')
 
         # Add transition zone label and store the handle
         self.transition_zone_text = self.ax.text(0, 50, 4, "Energy\nTransition\nZone",
