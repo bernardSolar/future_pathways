@@ -195,29 +195,46 @@ class PathwayVisualizer:
 
     def setup_controls(self):
         """Set up the interactive controls with colored labels"""
-        # Create axes for pathway controls
+        # Create axes for pathway controls - keeping same position
         rax = plt.axes([0.02, 0.4, 0.12, 0.2])
         rax.set_frame_on(False)
 
         # Create checkbuttons for pathways
-        self.check = CheckButtons(rax, list(self.paths.keys()), [True] * len(self.paths))
+        pathway_labels = [
+            'Business As Usual',
+            'Degrowth (Hickel)',
+            'Great Simplification (Hagens)',
+            'Eco-modernist Utopia',
+            'Way et al. Fast Transition',
+            'Way et al. Slow Transition',
+            'Way et al. No Transition'
+        ]
+        self.check = CheckButtons(rax, pathway_labels, [True] * len(pathway_labels))
 
-        # Modify the appearance of each label
+        # Modify the appearance of each pathway label
         for i, label in enumerate(self.check.labels):
             path_props = self.paths[label.get_text()]
             label.set_color(path_props['color'])
 
         self.check.on_clicked(self._toggle_path)
 
-        # Create separate axes for transition zone controls
-        tax = plt.axes([0.02, 0.35, 0.12, 0.12])  # Increased height for three buttons
+        # Create separate axes for transition zone controls with spacing
+        tax = plt.axes([0.02, 0.25, 0.12, 0.08])  # Moved lower with adjusted height
         tax.set_frame_on(False)
 
-        # Create checkbuttons for all three zones
-        self.zone_check = CheckButtons(tax, ['Energy Transition Zone', 'Intermediate Zone', 'Descent Zone'], [True, True, True])
+        # Create checkbuttons for zones
+        zone_labels = [
+            'Energy Transition Zone',
+            'Intermediate Zone',
+            'Descent Zone'
+        ]
+        self.zone_check = CheckButtons(tax, zone_labels, [True, True, True])
+
+        # Set colors for zone labels
         self.zone_check.labels[0].set_color('green')
         self.zone_check.labels[1].set_color('orange')
         self.zone_check.labels[2].set_color('red')
+
         self.zone_check.on_clicked(self._toggle_zones)
 
     def _toggle_path(self, label):
