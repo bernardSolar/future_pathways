@@ -82,6 +82,14 @@ class PathwayVisualizer:
                 material_range=(0, 106),
                 emission_range=(-20, 50),
                 text_position=(0, 50, -2.5)
+            ),
+            'Future Materials Use': ZoneConfig(
+                name='Future Materials Use',
+                color='blue',
+                growth_range=(-5, 5),
+                material_range=(106, 160),
+                emission_range=(-20, 50),
+                text_position=(0, 130, 0)
             )
         }
 
@@ -184,14 +192,17 @@ class PathwayVisualizer:
     def create_transition_zones(self):
         """Create all transition zone surfaces"""
         x = np.linspace(-20, 50, 20)
-        y = np.linspace(0, 106, 20)
+        y = np.linspace(0, 160, 20)  # Extended to accommodate Future Materials Use zone
         X, Y = np.meshgrid(x, y)
 
         for zone in self.zones.values():
             # Create horizontal surfaces
             z_range = np.linspace(zone.growth_range[0], zone.growth_range[1], 20)
             for growth in z_range:
+                # Only create surfaces within the zone's material range
+                mask = (Y >= zone.material_range[0]) & (Y <= zone.material_range[1])
                 Z = np.full_like(X, growth)
+                Z[~mask] = np.nan  # Make surfaces outside material range invisible
                 surface = self.ax.plot_surface(X, Y, Z, alpha=0.02, color=zone.color)
                 zone.surfaces.append(surface)
 
@@ -199,22 +210,37 @@ class PathwayVisualizer:
 
     def _create_vertical_surfaces(self):
         """Create vertical surfaces for all zones"""
-        y_wall = np.linspace(0, 106, 20)
-        X_wall = np.linspace(-20, 50, 20)
-
         for zone in self.zones.values():
-            # Front wall
+            # Create vertical surfaces at material range boundaries
+            x_wall = np.linspace(-20, 50, 20)
             z_wall = np.linspace(zone.growth_range[0], zone.growth_range[1], 20)
-            Y_wall, Z_wall = np.meshgrid(y_wall, z_wall)
-            X_wall_front = np.full_like(Y_wall, 50)
-            surface = self.ax.plot_surface(X_wall_front, Y_wall, Z_wall,
+            X_wall, Z_wall = np.meshgrid(x_wall, z_wall)
+
+            # Front wall at maximum material value
+            Y_wall_max = np.full_like(X_wall, zone.material_range[1])
+            surface = self.ax.plot_surface(X_wall, Y_wall_max, Z_wall,
                                            alpha=0.02, color=zone.color)
             zone.surfaces.append(surface)
 
-            # Material wall
-            X_wall_mesh, Z_wall_mesh = np.meshgrid(X_wall, z_wall)
-            Y_wall_mat = np.full_like(X_wall_mesh, 106)
-            surface = self.ax.plot_surface(X_wall_mesh, Y_wall_mat, Z_wall_mesh,
+            # Back wall at minimum material value
+            Y_wall_min = np.full_like(X_wall, zone.material_range[0])
+            surface = self.ax.plot_surface(X_wall, Y_wall_min, Z_wall,
+                                           alpha=0.02, color=zone.color)
+            zone.surfaces.append(surface)
+
+            # Side walls
+            y_wall = np.linspace(zone.material_range[0], zone.material_range[1], 20)
+            Y_wall, Z_wall = np.meshgrid(y_wall, z_wall)
+
+            # Right side wall at maximum emissions
+            X_wall_max = np.full_like(Y_wall, zone.emission_range[1])
+            surface = self.ax.plot_surface(X_wall_max, Y_wall, Z_wall,
+                                           alpha=0.02, color=zone.color)
+            zone.surfaces.append(surface)
+
+            # Left side wall at minimum emissions
+            X_wall_min = np.full_like(Y_wall, zone.emission_range[0])
+            surface = self.ax.plot_surface(X_wall_min, Y_wall, Z_wall,
                                            alpha=0.02, color=zone.color)
             zone.surfaces.append(surface)
 
@@ -222,7 +248,7 @@ class PathwayVisualizer:
         """Plot all pathways and current position"""
         # Plot current position
         self.ax.scatter([self.current_pos[0]], [self.current_pos[2]], [self.current_pos[1]],
-                        color='red', s=100, label='Current Position (2024)')
+                        color='red', s=100, label='We Are Here (2024)')
 
         # Plot all paths
         for path_name, path_config in self.paths.items():
@@ -260,7 +286,7 @@ class PathwayVisualizer:
         self.check.on_clicked(self._toggle_path)
 
         # Create separate axes for transition zone controls
-        tax = plt.axes([0.02, 0.25, 0.12, 0.08])
+        tax = plt.axes([0.02, 0.25, 0.12, 0.1])  # Adjusted height to accommodate new zone
         tax.set_frame_on(False)
 
         # Create checkbuttons for zones
@@ -297,9 +323,9 @@ class PathwayVisualizer:
         # Add zone labels
         for zone in self.zones.values():
             zone.text_handle = self.ax.text(*zone.text_position,
-                                            f"{zone.name}",
-                                            color=zone.color,
-                                            fontsize=10)
+                                                f"{zone.name}",
+                                                color=zone.color,
+                                                fontsize=10)
 
         # Set axis limits and view
         self.ax.set_xlim([-20, 60])
@@ -326,7 +352,6 @@ class PathwayVisualizer:
     def show(self):
         """Display the visualization"""
         plt.show()
-
 
 if __name__ == "__main__":
     viz = PathwayVisualizer()
