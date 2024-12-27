@@ -11,10 +11,10 @@ This axis represents annual greenhouse gas emissions in gigatonnes of CO2 equiva
 ### Y-Axis: Growth (%/yr)
 This vertical axis represents annual economic growth, measured as a percentage change in GDP/energy use/civilization complexity. It ranges from -5% (significant decline) to +5% (rapid growth). Our current position shows approximately 2.5% growth, typical of modern industrial economies.
 
-### Z-Axis: Material Use (billion tonnes/yr)
+### Z-Axis: Material Use (GT/yr)
 This axis represents annual material consumption, including all extracted resources, from minerals to biomass. Current global material consumption is approximately 106 billion tonnes annually, with projections suggesting potential increases to 160 billion tonnes by 2060 under business-as-usual scenarios.
 
-## The Four Pathways
+## Some Example Pathways
 
 ### 1. Business As Usual (BAU)
 This pathway represents the continuation of current trends:
@@ -47,6 +47,36 @@ Represents the techno-optimist vision:
 - Initial increase then decline in material use through advanced recycling
 - Assumes successful decoupling of growth from environmental impact
 - Relies heavily on technological advancement
+
+### 5. Way et al. Fast Transition
+https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+Based on empirically-grounded technology forecasts for rapid decarbonization:
+
+- Exponential decrease in CO2e emissions reaching near-zero by 2050, with potential for negative emissions
+- Maintains positive economic growth through cost savings and new infrastructure development
+- Initial high material use for renewable infrastructure buildout, followed by efficiency gains
+- Leverages current deployment rates of solar, wind, batteries and electrolyzers
+- Shows rapid transition can be cheaper than business as usual
+
+### 6. Way et al. Slow Transition
+https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+Represents a more gradual approach to energy system transformation:
+
+- Slower exponential decrease in emissions as fossil fuels phased out gradually
+- Lower but still positive growth due to higher transition costs and delayed benefits
+- Sustained high material use from maintaining parallel energy systems
+- Fossil fuels continue to dominate until mid-century
+- Demonstrates higher costs of delayed action
+
+### 7. Way et al. No Transition
+https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+Models continued fossil fuel dependence without significant system change:
+
+- Rising CO2e emissions from continued fossil fuel use
+- Declining economic growth from mounting climate impacts and higher costs
+- Increasing material use from fossil infrastructure maintenance and climate adaptation
+- Similar to BAU but with more explicit modeling of economic consequences
+- Based on empirical costs of maintaining fossil fuel systems
 
 ## Time Dimension
 Each point along a pathway represents a potential future state, with markers indicating years from 2024 to 2060. This allows us to visualize not just the direction but also the speed of changes in each scenario.
