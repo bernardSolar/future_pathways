@@ -16,6 +16,13 @@ This axis represents annual material consumption, including all extracted resour
 
 ## Some Example Pathways
 
+### 0. Historical Trajectory (From first COP in 1995 to 2024)
+- The steep upward trend in both emissions and material use from 1995 to 2024
+- The COVID-19 dip in growth around 2020, showing as a dramatic downward spike
+- The rapid recovery and return to high emissions/material use by 2024
+- How we've consistently remained in or above the "Energy Transition Zone" in terms of growth, 
+but have been moving away from sustainable emissions and material use levels
+
 ### 1. Business As Usual (BAU)
 This pathway represents the continuation of current trends:
 - Increasing CO2e emissions reaching 60 GT/yr
@@ -50,6 +57,7 @@ Represents the techno-optimist vision:
 
 ### 5. Way et al. Fast Transition
 https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+
 Based on empirically-grounded technology forecasts for rapid decarbonization:
 
 - Exponential decrease in CO2e emissions reaching near-zero by 2050, with potential for negative emissions
@@ -60,6 +68,7 @@ Based on empirically-grounded technology forecasts for rapid decarbonization:
 
 ### 6. Way et al. Slow Transition
 https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+
 Represents a more gradual approach to energy system transformation:
 
 - Slower exponential decrease in emissions as fossil fuels phased out gradually
@@ -70,6 +79,7 @@ Represents a more gradual approach to energy system transformation:
 
 ### 7. Way et al. No Transition
 https://www.cell.com/joule/fulltext/S2542-4351(22)00410-X
+
 Models continued fossil fuel dependence without significant system change:
 
 - Rising CO2e emissions from continued fossil fuel use
