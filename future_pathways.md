@@ -6,24 +6,45 @@ This visualization model offers a framework for exploring this question by mappi
 potential transition pathways through the complex interplay of three critical variables: 
 economic growth, CO2 emissions, and material use.
 
-## The Model: A Lens for Viewing Possible Futures
+## A Lens for Viewing Possible Futures
 
 The model creates a three-dimensional space where each axis represents a fundamental aspect of our 
 civilization's trajectory:
 - Economic Growth (measured in percent per year) - AKA "Progress", "Civilisation Complexity", "GDP"
 - CO2 Emissions (gigatons per year)
 - Material Use (gigatons per year)
+<p>
+  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="500" />
+</p>
 
 Within this space, different "zones" represent possible states of civilization:
 
-- The Energy Transition Zone (2.5-5% growth): Represents successful transition pathways where emissions decrease while maintaining or improving economic growth
-- The Intermediate Zone (0-2.5% growth): Represents moderate transition scenarios
-- The Descent Zone (negative growth): Represents scenarios involving economic contraction
-- The Future Materials Use Zone: Represents pathways involving increased material consumption
+- The Energy Transition Zone (2.5-5% growth): Represents successful transition pathways where emissions decrease while maintaining or improving economic growth.
+<p>
+  <img src="images/EnergyTransitionZone.png" alt="Energy Transition Zone" title="Energy Transition Zone" width="500" />
+</p>
 
-Our current position in 2024 sits at approximately 2.5% growth, 50 gigatons of CO2 emissions per 
+- The Intermediate Zone (0-2.5% growth): Represents moderate transition scenarios
+<p>
+  <img src="images/IntermediateZone.png" alt="Intermediate Zone" title="Intermediate Zone" width="500" />
+</p>
+
+- The Descent Zone (negative growth): Represents scenarios involving economic contraction
+<p>
+  <img src="images/DescentZone.png" alt="Descent Zone" title="Descent Zone" width="500" />
+</p>
+
+- The Future Materials Use Zone: Represents pathways involving increased material consumption
+<p>
+  <img src="images/FutureMaterialsUse.png" alt="Future Materials Use" title="Future Materials Use" width="500" />
+</p>
+
+Our current position in 2024 (red spot) sits at approximately 2.5% growth, 50 gigatons of CO2 emissions per 
 year, and 106 gigatons of material use per year. From this starting point, the model plots 
 several possible futures.
+<p>
+  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="500" />
+</p>
 
 ## Past Reality and Competing Visions of the Future
 
@@ -34,30 +55,48 @@ The model maps several distinct transition pathways, one showing our actual traj
 Since the first Conference of the Parties (COP1) climate conference in 1995 to the present day we 
 have seen ever-increasing CO2e emissions and material use, while growth saw a significant reduction 
 during the COVID-19 pandemic.
+<p>
+  <img src="images/HistoricalTrajectory.png" alt="Historical Trajectory" title="Historical Trajectory" width="500" />
+</p>
 
 ### Business as Usual (BAU)
 This pathway shows the consequences of maintaining current trends: increasing emissions, growing 
 material use, but gradually declining economic growth. The BAU trajectory suggests this approach 
 may be fundamentally unsustainable.
+<p>
+  <img src="images/BusinessAsUsual.png" alt="Business As Usual" title="Business As Usual" width="500" />
+</p>
 
 ### Degrowth (Hickel)
 Based on Jason Hickel's work, this pathway envisions a managed reduction in resource consumption 
 by wealthy nations while enabling development in poorer regions. The goal is to reach a steady 
 state with zero growth, low emissions, and circular material use.
+<p>
+  <img src="images/Degrowth.png" alt="Degrowth" title="Degrowth" width="500" />
+</p>
 
-### Great Simplification (Hagens)
+### The Great Simplification (Hagens)
 Nate Hagens' concept of "measured decline" suggests a managed descent to lower resource use and 
 emissions levels, acknowledging potential limitations in our ability to maintain current 
 consumption patterns.
+<p>
+  <img src="images/GreatSimplification.png" alt="The Great Simplification" title="The Great Simplification" width="500" />
+</p>
 
 ### Eco-modernist Utopia
 This pathway represents an optimistic vision where technological innovation enables simultaneous 
 reduction in emissions and material use while maintaining economic growth.
+<p>
+  <img src="images/EcoModernist.png" alt="Eco-modernist Utopia" title="Eco-modernist Utopia" width="500" />
+</p>
 
 ### Way et al. Transitions
 The model includes three variations of transition pathways (Fast, Slow, and No Transition), 
 helping visualize how the speed of change affects our trajectory through this three-dimensional 
 space.
+<p>
+  <img src="images/WayEtAl.png" alt="Way et al." title="Way et al." width="500" />
+</p>
 
 ## Historical Trajectory: Learning from Three Decades of Data
 
@@ -65,6 +104,9 @@ The model's historical trajectory from 1995 to 2024 tells a sobering story about
 the first Conference of the Parties (COP1) climate conference. By plotting actual data points for 
 global emissions, growth, and material use, we can trace humanity's path through this three-dimensional 
 possibility space:
+<p>
+  <img src="images/HistoricalWithZones.png" alt="Historical Trajectory" title="Historical Trajectory" width="500" />
+</p>
 
 ### 1995-2010: The Era of Unconstrained Growth
 During this period, we see a steady climb across all three dimensions:
@@ -116,6 +158,14 @@ The historical trajectory provides several crucial insights:
 
 5. **Transition Urgency**: The growing gap between our current position and sustainable zones highlights the increasing difficulty of achieving a successful energy transition without dramatic changes in direction.
 
+Perhaps most sobering of all, our historical trajectory reveals the sheer momentum of our current path. Even the unprecedented global shutdown during the COVID-19 pandemic – which caused the largest peacetime disruption to modern industrial civilization – produced only a temporary deviation before emissions and material use rebounded to their previous trajectory. This dramatically illustrates just how deeply embedded our emissions and material use are within our current economic system.
+
+The immediate return to our previous path after such a massive disruption serves as a stark warning: transitioning to a sustainable trajectory will require far more than incremental changes or temporary reductions. It demands a fundamental restructuring of how our civilization operates, and we have precious little time to achieve this transformation. The rapidly widening gap between our current position and any sustainable pathway shows that each year of delay makes the required transition steeper and more difficult to achieve.
+
+As the historical data shows, we are not merely failing to reduce emissions and material use – we are actively accelerating in the wrong direction. This means that any successful transition must first overcome this tremendous momentum before it can even begin moving us toward sustainability. It's akin to turning a supertanker: the longer we wait to begin the turn, the more likely we are to miss our chance entirely.
+
+The model makes clear that we face not just a technical challenge, but a civilizational one. The question is no longer simply whether we can develop sustainable technologies and practices – it's whether we can implement them at the necessary scale and speed while maintaining social stability. The historical trajectory suggests this may be the defining challenge of our time, requiring unprecedented levels of coordination, innovation, and societal transformation.
+
 ## The Model as a Discussion Tool
 
 Perhaps the most valuable aspect of this visualization is not its predictive power but its ability to facilitate meaningful discussions about our future options. By mapping different proposals in three-dimensional space, it helps us:
@@ -125,6 +175,27 @@ Perhaps the most valuable aspect of this visualization is not its predictive pow
 2. Challenge Assumptions: By plotting different pathways, we can question whether certain combinations (like high growth with low emissions and material use) are realistically achievable.
 
 3. Frame Debates: The model provides a common framework for discussing different approaches to transition, helping clarify where various proposals differ and where they might complement each other.
+
+### Storytellers: Pathways as Future Narratives
+
+Each trajectory through this three-dimensional space isn't just a line on a graph – it's a possible story of our future, complete with its own set of living conditions, challenges, and opportunities for the people who would inhabit that future. Thinking of these pathways as narratives can help us better understand what they might mean for daily life:
+
+Consider the "Business as Usual" pathway: This is a story where we continue much as we are, but with increasing strain. It's a world of rising seas and changing weather patterns, where society spends more and more resources trying to adapt to environmental changes while maintaining current lifestyles. The characters in this story might be engineers building ever-higher sea walls, or farmers continually adjusting to new growing conditions.
+
+The "Degrowth" pathway tells a different story: One where wealthy societies deliberately choose to use less, while supporting development in poorer regions. It might be a world of local production, repair cafes, and community gardens, where people work fewer hours but spend more time in community activities. The protagonists here might be teaching others how to grow food or repair electronics, or coordinating shared resource systems.
+
+The "Great Simplification" narrative suggests a managed step-down in complexity: Perhaps a world where some modern technologies become luxury items rather than everyday conveniences, but where communities develop new (or rediscover old) ways of meeting their needs. Here we might find stories of people adapting to more seasonal lifestyles, or developing new social arrangements to share reduced resources.
+
+The "Eco-modernist Utopia" spins a tale of technological triumph: Advanced nuclear power, carbon capture, and material recycling technologies enable continued growth while healing environmental damage. These would be stories of scientists and engineers developing breakthrough technologies, but also of society learning to use incredible power responsibly.
+
+By thinking of these pathways as settings for human stories, we can better grasp:
+
+1. The Human Element: How different futures might feel to live in, not just their technical parameters
+2. Complex Trade-offs: The real implications of choices between growth, emissions, and material use
+3. Adaptation Challenges: How societies might need to change along each pathway
+4. Innovation Opportunities: What new ways of living might emerge in each scenario
+
+This narrative approach helps bridge the gap between abstract models and lived experience, making the implications of different choices more tangible and relatable. It reminds us that whichever path we take, it will be traveled by real people with hopes, fears, and dreams – people who will need to navigate whatever world our choices create.
 
 ## Limitations and Future Development
 
