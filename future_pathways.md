@@ -1,10 +1,13 @@
 # Visualizing Our Future: A 3D Model of Society's Possible Transition Pathways
 
 As society grapples with the challenges of climate change, resource constraints, and economic 
-development, one of the most pressing questions we face is: What futures are actually possible? 
-This visualization model offers a framework for exploring this question by mapping 
+development, one of the most pressing questions we face is: **What futures are actually possible?** 
+This visualization offers a framework for exploring this question by mapping 
 potential transition pathways through the complex interplay of three critical variables: 
 economic growth, CO2 emissions, and material use.
+<p>
+  <img src="images/FuturePathways.png" alt="Future Pathways" title="Future Pathways"/>
+</p>
 
 ## A Lens for Viewing Possible Futures
 
@@ -14,36 +17,36 @@ civilization's trajectory:
 - CO2 Emissions (gigatons per year)
 - Material Use (gigatons per year)
 <p>
-  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="500" />
+  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="800" />
 </p>
 
 Within this space, different "zones" represent possible states of civilization:
 
 - The Energy Transition Zone (2.5-5% growth): Represents successful transition pathways where emissions decrease while maintaining or improving economic growth.
 <p>
-  <img src="images/EnergyTransitionZone.png" alt="Energy Transition Zone" title="Energy Transition Zone" width="500" />
+  <img src="images/EnergyTransitionZone.png" alt="Energy Transition Zone" title="Energy Transition Zone" width="800" />
 </p>
 
 - The Intermediate Zone (0-2.5% growth): Represents moderate transition scenarios
 <p>
-  <img src="images/IntermediateZone.png" alt="Intermediate Zone" title="Intermediate Zone" width="500" />
+  <img src="images/IntermediateZone.png" alt="Intermediate Zone" title="Intermediate Zone" width="800" />
 </p>
 
 - The Descent Zone (negative growth): Represents scenarios involving economic contraction
 <p>
-  <img src="images/DescentZone.png" alt="Descent Zone" title="Descent Zone" width="500" />
+  <img src="images/DescentZone.png" alt="Descent Zone" title="Descent Zone" width="800" />
 </p>
 
 - The Future Materials Use Zone: Represents pathways involving increased material consumption
 <p>
-  <img src="images/FutureMaterialsUse.png" alt="Future Materials Use" title="Future Materials Use" width="500" />
+  <img src="images/FutureMaterialsUse.png" alt="Future Materials Use" title="Future Materials Use" width="800" />
 </p>
 
 Our current position in 2024 (red spot) sits at approximately 2.5% growth, 50 gigatons of CO2 emissions per 
 year, and 106 gigatons of material use per year. From this starting point, the model plots 
 several possible futures.
 <p>
-  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="500" />
+  <img src="images/WeAreHere2024.png" alt="We Are Here (2024)" title="We Are Here (2024)" width="800" />
 </p>
 
 ## Past Reality and Competing Visions of the Future
@@ -56,7 +59,7 @@ Since the first Conference of the Parties (COP1) climate conference in 1995 to t
 have seen ever-increasing CO2e emissions and material use, while growth saw a significant reduction 
 during the COVID-19 pandemic.
 <p>
-  <img src="images/HistoricalTrajectory.png" alt="Historical Trajectory" title="Historical Trajectory" width="500" />
+  <img src="images/HistoricalTrajectory.png" alt="Historical Trajectory" title="Historical Trajectory" width="800" />
 </p>
 
 ### Business as Usual (BAU)
@@ -64,7 +67,7 @@ This pathway shows the consequences of maintaining current trends: increasing em
 material use, but gradually declining economic growth. The BAU trajectory suggests this approach 
 may be fundamentally unsustainable.
 <p>
-  <img src="images/BusinessAsUsual.png" alt="Business As Usual" title="Business As Usual" width="500" />
+  <img src="images/BusinessAsUsual.png" alt="Business As Usual" title="Business As Usual" width="800" />
 </p>
 
 ### Degrowth (Hickel)
@@ -72,7 +75,7 @@ Based on Jason Hickel's work, this pathway envisions a managed reduction in reso
 by wealthy nations while enabling development in poorer regions. The goal is to reach a steady 
 state with zero growth, low emissions, and circular material use.
 <p>
-  <img src="images/Degrowth.png" alt="Degrowth" title="Degrowth" width="500" />
+  <img src="images/Degrowth.png" alt="Degrowth" title="Degrowth" width="800" />
 </p>
 
 ### The Great Simplification (Hagens)
@@ -80,14 +83,14 @@ Nate Hagens' concept of "measured decline" suggests a managed descent to lower r
 emissions levels, acknowledging potential limitations in our ability to maintain current 
 consumption patterns.
 <p>
-  <img src="images/GreatSimplification.png" alt="The Great Simplification" title="The Great Simplification" width="500" />
+  <img src="images/GreatSimplification.png" alt="The Great Simplification" title="The Great Simplification" width="800" />
 </p>
 
 ### Eco-modernist Utopia
 This pathway represents an optimistic vision where technological innovation enables simultaneous 
 reduction in emissions and material use while maintaining economic growth.
 <p>
-  <img src="images/EcoModernist.png" alt="Eco-modernist Utopia" title="Eco-modernist Utopia" width="500" />
+  <img src="images/EcoModernist.png" alt="Eco-modernist Utopia" title="Eco-modernist Utopia" width="800" />
 </p>
 
 ### Way et al. Transitions
@@ -95,7 +98,7 @@ The model includes three variations of transition pathways (Fast, Slow, and No T
 helping visualize how the speed of change affects our trajectory through this three-dimensional 
 space.
 <p>
-  <img src="images/WayEtAl.png" alt="Way et al." title="Way et al." width="500" />
+  <img src="images/WayEtAl.png" alt="Way et al." title="Way et al." width="800" />
 </p>
 
 ## Historical Trajectory: Learning from Three Decades of Data
@@ -105,7 +108,7 @@ the first Conference of the Parties (COP1) climate conference. By plotting actua
 global emissions, growth, and material use, we can trace humanity's path through this three-dimensional 
 possibility space:
 <p>
-  <img src="images/HistoricalWithZones.png" alt="Historical Trajectory" title="Historical Trajectory" width="500" />
+  <img src="images/HistoricalWithZones.png" alt="Historical Trajectory" title="Historical Trajectory" width="800" />
 </p>
 
 ### 1995-2010: The Era of Unconstrained Growth
@@ -162,7 +165,7 @@ Perhaps most sobering of all, our historical trajectory reveals the sheer moment
 
 The immediate return to our previous path after such a massive disruption serves as a stark warning: transitioning to a sustainable trajectory will require far more than incremental changes or temporary reductions. It demands a fundamental restructuring of how our civilization operates, and we have precious little time to achieve this transformation. The rapidly widening gap between our current position and any sustainable pathway shows that each year of delay makes the required transition steeper and more difficult to achieve.
 
-As the historical data shows, we are not merely failing to reduce emissions and material use – we are actively accelerating in the wrong direction. This means that any successful transition must first overcome this tremendous momentum before it can even begin moving us toward sustainability. It's akin to turning a supertanker: the longer we wait to begin the turn, the more likely we are to miss our chance entirely.
+As the historical data show, we are not merely failing to reduce emissions and material use – we are actively accelerating in the wrong direction. This means that any successful transition must first overcome this tremendous momentum before it can even begin moving us toward sustainability. It's akin to turning a supertanker: the longer we wait to begin the turn, the more likely we are to miss our chance entirely.
 
 The model makes clear that we face not just a technical challenge, but a civilizational one. The question is no longer simply whether we can develop sustainable technologies and practices – it's whether we can implement them at the necessary scale and speed while maintaining social stability. The historical trajectory suggests this may be the defining challenge of our time, requiring unprecedented levels of coordination, innovation, and societal transformation.
 
