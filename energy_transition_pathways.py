@@ -57,6 +57,12 @@ class PathwayVisualizer:
         self.t = np.linspace(0, 1, 37)
         self.current_pos = np.array([50, 2.5, 106])  # CO2e, Growth, Materials
 
+        # Historical data points from 1995 to 2024
+        self.historical_years = np.array([1995, 2000, 2005, 2010, 2015, 2020, 2024])
+        self.historical_emissions = np.array([23.0, 25.5, 30.0, 33.5, 36.5, 43.0, 50.0])  # GT CO2e/yr
+        self.historical_growth = np.array([3.3, 4.4, 3.9, 4.3, 2.9, -3.3, 2.5])  # %/yr
+        self.historical_materials = np.array([45.0, 54.0, 65.0, 78.0, 88.0, 98.0, 106.0])  # GT/yr
+
         # Initialize zones configuration
         self.zones = {
             'Energy Transition Zone': ZoneConfig(
@@ -106,6 +112,11 @@ class PathwayVisualizer:
     def _initialize_paths(self) -> Dict[str, PathConfig]:
         """Initialize pathway configurations"""
         return {
+            'Historical Trajectory': PathConfig(
+                name='Historical Trajectory',
+                color='black',
+                marker='*'  # star
+            ),
             'Business As Usual': PathConfig(
                 name='Business As Usual',
                 color='red',
@@ -158,7 +169,10 @@ class PathwayVisualizer:
         Returns:
             Tuple of (x, y, z) coordinates arrays
         """
-        if path_name == 'Business As Usual':
+        if path_name == 'Historical Trajectory':
+            # Return historical data points
+            return self.historical_emissions, self.historical_growth, self.historical_materials
+        elif path_name == 'Business As Usual':
             x = self.current_pos[0] + 10 * self.t
             y = self.current_pos[1] - 3.5 * self.t
             z = self.current_pos[2] + 54 * self.t
@@ -259,16 +273,27 @@ class PathwayVisualizer:
 
     def _plot_path_with_years(self, x, z, y, color, label, marker):
         """Plot a single path with year markers"""
-        line, = self.ax.plot(x, z, y, color=color, label=label, linewidth=2)
-        artists = [line]
-
-        # Add year markers every 10 years
-        for i in range(0, len(self.years), 10):
-            if i > 0:  # Skip 2024 as it's marked by the red dot
-                point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=25)
-                text = self.ax.text(x[i], z[i], y[i], f'{int(self.years[i])}', color=color)
-                artists.extend([point, text])
-        return artists
+        if label == 'Historical Trajectory':
+            # Plot historical trajectory with years
+            for i in range(len(self.historical_years)):
+                point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=100, label=label if i == 0 else "")  # Changed order
+                text = self.ax.text(x[i], z[i], y[i], f'{int(self.historical_years[i])}', color=color)  # Changed order
+                if i > 0:
+                    line = self.ax.plot([x[i - 1], x[i]], [z[i - 1], z[i]], [y[i - 1], y[i]],  # Changed order
+                                        color=color, linewidth=2)[0]
+                    self.paths[label].artists.extend([line])
+                self.paths[label].artists.extend([point, text])
+            return self.paths[label].artists
+        else:
+            # Original plotting for future pathways
+            line, = self.ax.plot(x, z, y, color=color, label=label, linewidth=2)
+            artists = [line]
+            for i in range(0, len(self.years), 10):
+                if i > 0:  # Skip 2024 as it's marked by the red dot
+                    point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=25)
+                    text = self.ax.text(x[i], z[i], y[i], f'{int(self.years[i])}', color=color)
+                    artists.extend([point, text])
+            return artists
 
     def setup_controls(self):
         """Set up the interactive controls with colored labels"""
@@ -323,9 +348,9 @@ class PathwayVisualizer:
         # Add zone labels
         for zone in self.zones.values():
             zone.text_handle = self.ax.text(*zone.text_position,
-                                                f"{zone.name}",
-                                                color=zone.color,
-                                                fontsize=10)
+                                            f"{zone.name}",
+                                            color=zone.color,
+                                            fontsize=10)
 
         # Set axis limits and view
         self.ax.set_xlim([-20, 60])
