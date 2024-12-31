@@ -1,5 +1,6 @@
 # Future Pathways: Visualizing Our Transition Pathways
 
+## Where Are We Going (And Where Have We Been)?
 As society grapples with the challenges of climate change, resource constraints, and economic 
 development, one of the most pressing questions we face is: **What futures are actually possible?** 
 This visualization offers a framework for exploring this question by mapping 
@@ -43,6 +44,10 @@ Within this space, different "zones" represent possible states of civilization:
 <p>
   <img src="images/FutureMaterialsUse.png" alt="Future Materials Use" title="Future Materials Use" width="800" />
 </p>
+
+[Transition Zones on YouTube](https://www.youtube.com/watch?v=t3BuuyYv_OM)
+
+## Where Are We?
 
 Our current position in 2024 (red spot) sits at approximately 2.5% growth, 50 gigatons of CO2 emissions per 
 year, and 106 gigatons of material use per year. From this starting point, the model plots 
