@@ -200,24 +200,78 @@ By thinking of these pathways as settings for human stories, we can better grasp
 
 This narrative approach helps bridge the gap between abstract models and lived experience, making the implications of different choices more tangible and relatable. It reminds us that whichever path we take, it will be traveled by real people with hopes, fears, and dreams – people who will need to navigate whatever world our choices create.
 
+## The Visualization as a Cognitive Artifact
+
+In discussing tools that help us think about complex problems, the Santa Fe Institute's David Krakauer makes use of
+the concept of cognitive artifacts - tools that extend and enhance our ability to understand and 
+reason about challenging concepts. Through this lens, our three-dimensional visualization of future pathways might serve
+as a cognitive artifact, enhancing our ability to grasp and reason about possible futures in different ways.
+
+### Cognitive Enhancement
+
+As a cognitive artifact, the visualization acts as an external thinking tool that allows us to reason about possibilities 
+in ways we couldn't easily do otherwise. Just as a calculator helps us perform complex calculations, this model helps us:
+
+- Simultaneously visualize and manipulate three interrelated variables (growth, emissions, and material use) in a way our unaided minds might find difficult
+- Compare different transition pathways within a common framework
+- Identify relationships and trade-offs that might remain hidden in raw data or text descriptions
+- Create a shared visual space for discussing and debating future scenarios
+
+This function is particularly valuable when we need to communicate (tell stories) about possible futures with others or analyze specific transition proposals.
+
+The visualization also aims to help us develop better thinking abilities even when we're not directly using it. Like mathematical notation, which gives us 
+new ways to think about quantitative relationships, this intention is to provide:
+
+- A mental framework for understanding the relationships between key variables in sustainability transitions
+- An intuitive grasp of the constraints and trade-offs involved in different futures
+- A structured way to think about the implications of current decisions on future possibilities
+- A shared conceptual model that can enhance discussion and planning
+
+Once internalized, this framework helps us think more systematically about sustainability transitions even in contexts 
+where we don't have the visualization in front of us.
+
+### Building Better Mental Models
+
+Using this visualization as a cognitive artifact might help us build better mental models of possible futures. By making 
+abstract concepts concrete and visible, it allows us to:
+
+1. Develop Intuition: The spatial relationships in the model help build intuitive understanding of how different variables interact
+2. Challenge Assumptions: The visual representation helps identify when our existing mental models might be flawed
+3. Share Understanding: The model provides a common framework for discussing complex futures
+4. Guide Action: The visualization helps connect current decisions to their long-term implications
+
+This cognitive scaffolding is particularly valuable given the complexity of the sustainability challenges we face. 
+As we grapple with decisions that will affect futures decades away, having tools that enhance our ability to think 
+about and discuss these futures becomes increasingly crucial.
+
 ## Limitations and Future Development
 
-While powerful as a thinking and monitoring tool, the model should be understood as a framework for discussion and tracking rather than a precise prediction of future possibilities. Its value lies in helping us visualize, debate, and monitor different transition pathways, not in definitively stating which paths are viable or optimal.
+While hopefully useful as a thinking and monitoring tool, the model should be understood as a framework for discussion and tracking rather than a precise prediction of future possibilities. Its value lies in helping us visualize, debate, and monitor different transition pathways, not in definitively stating which paths are viable or optimal.
 
 The zones and pathways represented are necessarily simplified versions of complex proposals, and users are encouraged to critique and refine these representations based on their understanding of the underlying concepts. Similarly, when tracking real-world trajectories, it's important to consider factors that might not be captured in the three primary variables.
 
-## Conclusion
+Hidden behind the three chosen axes are our impacts on the natural world: biodiversity and habitat loss, pollution and
+increasing human encroachment across the globe. There's almost certainly other sets of interdependent axes to plot that 
+inform us and tell stories about different future pathways.... let's see them!
+
+## Your Pathway
 
 As we navigate the challenges of climate change and resource constraints, tools that help us visualize and discuss possible futures become increasingly valuable. This 3D model offers a unique framework for understanding the relationships between key variables in our civilization's trajectory and the various proposals for managing transition.
 
 By making explicit the trade-offs and relationships between growth, emissions, and material use, while also showing our actual historical trajectory, the model helps us move beyond simplified debates and toward a more nuanced understanding of the challenges and opportunities ahead. Whether we ultimately follow a path of managed descent, ambitious technological transformation, or something in between, understanding the full range of possibilities - and our current direction - is crucial for making informed decisions about our collective future.
 
+The use of this visualisation is made freely available under the [] licence to use how you wish, but more 
+importantly to share so that others can also use it.
+
+If you would like to get involved or provide feedback, please contact the author at:
+bernard@solarnautics.org.
+
 ## Sources
 - Way, R., et al. (2022). "Empirically grounded technology forecasts and the energy transition" INET Oxford Working Paper No. 2021-01
 - Hickel, J. (2020). "Less is More: How Degrowth Will Save the World" William Heinemann, London
 - Hickel, J. & Kallis, G. (2020). "Is Green Growth Possible?" New Political Economy, 25(4), 469-486
-
 - Hagens, N. (2020). "Economics for the Future – Beyond the Superorganism" Ecological Economics, Volume 169
+- Krakauer, D. (2016). "Worlds Hidden in Plain Sight: Thirty Years of Complexity Thinking at the Santa Fe Institute"
 
 
 For material footprint and resource use data:
@@ -232,3 +286,10 @@ For CO2 emissions data:
 For global economic growth data:
 - World Bank World Development Indicators
 - IMF World Economic Outlook Database
+
+Links:
+- Nate Hagens "The Great Simplification": https://www.youtube.com/@thegreatsimplification
+- The Energy Transition Show:
+  - [Episode #239] – Making Sense of Chaos: https://xenetwork.org/ets/episodes/episode-239-making-sense-of-chaos/
+  - [Episode #231] – Five Times Faster: https://xenetwork.org/ets/episodes/episode-231-five-times-faster/
+  - [Episode #159] – The Cost of Decarbonization: https://xenetwork.org/ets/episodes/episode-159-the-cost-of-decarbonization/
