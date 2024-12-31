@@ -1,4 +1,4 @@
-# Future Pathways: Visualizing Our Transition Pathways
+# Future Pathways
 
 ## Where Are We Going (And Where Have We Been)?
 As society grapples with the challenges of climate change, resource constraints, and economic 
