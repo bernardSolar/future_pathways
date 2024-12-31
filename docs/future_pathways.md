@@ -1,6 +1,4 @@
-# Future Pathways
-
-## Where Are We Going (And Where Have We Been)?
+# Future Pathways: Where Are We Going (And Where Have We Been)?
 As society grapples with the challenges of climate change, resource constraints, and economic 
 development, one of the most pressing questions we face is: **What futures are actually possible?** 
 This visualization offers a framework for exploring this question by mapping 
