@@ -1,4 +1,4 @@
-# Visualizing Our Future: A 3D Model of Society's Possible Transition Pathways
+# Future Pathways: Visualizing Our Transition Pathways
 
 As society grapples with the challenges of climate change, resource constraints, and economic 
 development, one of the most pressing questions we face is: **What futures are actually possible?** 
@@ -6,8 +6,10 @@ This visualization offers a framework for exploring this question by mapping
 potential transition pathways through the complex interplay of three critical variables: 
 economic growth, CO2 emissions, and material use.
 <p>
-  <img src="images/FuturePathways.png" alt="Future Pathways" title="Future Pathways"/>
+  <img src="images/FuturePathways.png" alt="Future Pathways" title="Future Pathways" width="800" />
 </p>
+
+[Future Pathways on YouTube](https://www.youtube.com/watch?v=KVNlFfpQ3Xw)
 
 ## A Lens for Viewing Possible Futures
 
