@@ -1,6 +1,10 @@
 # Future Pathways: Where Are We Going (And Where Have We Been)?
 As society grapples with the challenges of climate change, resource constraints, and economic 
-development, one of the most pressing questions we face is: **What futures are actually possible?** 
+development, some of the most pressing questions we face are: 
+- **What futures are actually possible?**
+- **What pathways to the future are open to us?**
+- **What will it take to get there?**
+
 This visualization offers a framework for exploring this question by mapping 
 potential transition pathways through the complex interplay of three critical variables: 
 economic growth, CO2 emissions, and material use.
