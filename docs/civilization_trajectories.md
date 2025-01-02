@@ -6,7 +6,7 @@ This analytical framework presents a three-dimensional state space model for exa
 
 ## Introduction
 
-Contemporary civilization faces unprecedented challenges in navigating the complex interdependencies between economic development, climate stability, and resource constraints. This analysis presents a rigorous framework for examining these relationships through three fundamental state variables:
+Contemporary civilization faces unprecedented challenges in navigating the complex interdependencies between economic development, climate stability, and resource constraints. This analysis presents a framework for examining these relationships through three fundamental state variables:
 
 1. Economic Growth (γ): Measured as annual percentage change in global GDP
 2. Carbon Dioxide Emissions (E): Quantified in gigatons CO2-equivalent per annum
