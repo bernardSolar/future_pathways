@@ -1,4 +1,4 @@
-# A Quantitative Analysis of Civilization Trajectories: Mapping Future Pathways Through Three-Dimensional State Space
+# Civilization Trajectories: Mapping Future Pathways Through Three-Dimensional State Space
 
 ## Abstract
 
