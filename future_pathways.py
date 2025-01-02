@@ -114,42 +114,42 @@ class PathwayVisualizer:
             'Historical Trajectory': PathConfig(
                 name='Historical Trajectory',
                 color='black',
-                marker='*'  # star
+                marker='*'
             ),
             'Business As Usual': PathConfig(
                 name='Business As Usual',
                 color='red',
-                marker='s'  # square
+                marker='s'
             ),
             'Degrowth (Hickel)': PathConfig(
                 name='Degrowth (Hickel)',
                 color='blue',
-                marker='^'  # triangle up
+                marker='^'
             ),
             'Great Simplification (Hagens)': PathConfig(
                 name='Great Simplification (Hagens)',
                 color='green',
-                marker='v'  # triangle down
+                marker='v'
             ),
             'Eco-modernist Utopia': PathConfig(
                 name='Eco-modernist Utopia',
                 color='grey',
-                marker='D'  # diamond
+                marker='D'
             ),
             'Way et al. Fast Transition': PathConfig(
                 name='Way et al. Fast Transition',
                 color='magenta',
-                marker='o'  # circle
+                marker='o'
             ),
             'Way et al. Slow Transition': PathConfig(
                 name='Way et al. Slow Transition',
                 color='purple',
-                marker='p'  # pentagon
+                marker='p'
             ),
             'Way et al. No Transition': PathConfig(
                 name='Way et al. No Transition',
                 color='brown',
-                marker='h'  # hexagon
+                marker='h'
             )
         }
 
@@ -169,7 +169,6 @@ class PathwayVisualizer:
             Tuple of (x, y, z) coordinates arrays
         """
         if path_name == 'Historical Trajectory':
-            # Return historical data points
             return self.historical_emissions, self.historical_growth, self.historical_materials
         elif path_name == 'Business As Usual':
             x = self.current_pos[0] + 10 * self.t
@@ -205,7 +204,7 @@ class PathwayVisualizer:
     def create_transition_zones(self):
         """Create all transition zone surfaces"""
         x = np.linspace(-20, 50, 20)
-        y = np.linspace(0, 160, 20)  # Extended to accommodate Future Materials Use zone
+        y = np.linspace(0, 160, 20)
         X, Y = np.meshgrid(x, y)
 
         for zone in self.zones.values():
@@ -259,11 +258,9 @@ class PathwayVisualizer:
 
     def plot_paths(self):
         """Plot all pathways and current position"""
-        # Plot current position
         self.ax.scatter([self.current_pos[0]], [self.current_pos[2]], [self.current_pos[1]],
                         color='red', s=100, label='We Are Here (2024)')
 
-        # Plot all paths
         for path_name, path_config in self.paths.items():
             x, y, z = self._calculate_path_coordinates(path_name)
             path_config.artists = self._plot_path_with_years(
@@ -273,7 +270,6 @@ class PathwayVisualizer:
     def _plot_path_with_years(self, x, z, y, color, label, marker):
         """Plot a single path with year markers"""
         if label == 'Historical Trajectory':
-            # Plot historical trajectory with years
             for i in range(len(self.historical_years)):
                 point = self.ax.scatter(x[i], z[i], y[i], color=color, marker=marker, s=100, label=label if i == 0 else "")  # Changed order
                 text = self.ax.text(x[i], z[i], y[i], f'{int(self.historical_years[i])}', color=color)  # Changed order
@@ -284,7 +280,6 @@ class PathwayVisualizer:
                 self.paths[label].artists.extend([point, text])
             return self.paths[label].artists
         else:
-            # Original plotting for future pathways
             line, = self.ax.plot(x, z, y, color=color, label=label, linewidth=2)
             artists = [line]
             for i in range(0, len(self.years), 10):
@@ -300,23 +295,18 @@ class PathwayVisualizer:
         rax = plt.axes([0.02, 0.4, 0.12, 0.2])
         rax.set_frame_on(False)
 
-        # Create checkbuttons for pathways
         self.check = CheckButtons(rax, list(self.paths.keys()), [True] * len(self.paths))
 
-        # Modify the appearance of each pathway label
         for i, label in enumerate(self.check.labels):
             self.check.labels[i].set_color(self.paths[label.get_text()].color)
 
         self.check.on_clicked(self._toggle_path)
 
-        # Create separate axes for transition zone controls
-        tax = plt.axes([0.02, 0.25, 0.12, 0.1])  # Adjusted height to accommodate new zone
+        tax = plt.axes([0.02, 0.25, 0.12, 0.1])
         tax.set_frame_on(False)
 
-        # Create checkbuttons for zones
         self.zone_check = CheckButtons(tax, list(self.zones.keys()), [True] * len(self.zones))
 
-        # Set colors for zone labels
         for i, zone_name in enumerate(self.zones.keys()):
             self.zone_check.labels[i].set_color(self.zones[zone_name].color)
 
@@ -338,20 +328,17 @@ class PathwayVisualizer:
 
     def finalize_plot(self):
         """Set up final plot parameters and styling"""
-        # Set labels and title
         self.ax.set_xlabel('CO2e Emissions (GT/yr)')
         self.ax.set_zlabel('Growth (%/yr)')
         self.ax.set_ylabel('Material Use (GT/yr)')
-        self.ax.set_title('Future Pathways: 2024-2060')
+        self.ax.set_title('Future Pathways: 2024-2060', fontsize=18)
 
-        # Add zone labels
         for zone in self.zones.values():
             zone.text_handle = self.ax.text(*zone.text_position,
                                             f"{zone.name}",
                                             color=zone.color,
                                             fontsize=10)
 
-        # Set axis limits and view
         self.ax.set_xlim([-20, 60])
         self.ax.set_ylim([0, 200])
         self.ax.set_zlim([-5, 5])
@@ -359,11 +346,9 @@ class PathwayVisualizer:
         self.ax.view_init(elev=20, azim=45)
         self.ax.grid(True)
 
-        # Add legend and controls text
         self.ax.legend(bbox_to_anchor=(0.5, -0.1), loc='upper center', ncol=3)
         self._add_control_text()
 
-        # Adjust layout
         plt.subplots_adjust(bottom=0.2)
 
     def _add_control_text(self):
