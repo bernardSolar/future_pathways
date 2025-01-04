@@ -40,5 +40,5 @@ Key Outcomes:
 The simulation demonstrates how multiple factors - economics, policy, social influence, and environmental awareness - can work together to drive a successful energy transition. The S-shaped adoption curve matches real-world patterns of technological diffusion, while the emissions trajectory shows how rapid decarbonization could help limit global warming.
 
 <p>
-  <img src="../images/enhanced_climate_abm.png" alt="Climate ABM" title="Climate ABM" width="800" />
+  <img src="../images/EnhancedClimateABM.png" alt="Climate ABM" title="Climate ABM" width="800" />
 </p>
