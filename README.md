@@ -51,7 +51,7 @@ You can run the application in one of two ways:
 #### Command Line
 From the project directory, run:
 ```console
-python3 energy_transition_pathways.py
+python3 future_pathways.py
 ```
 
 #### IDE
