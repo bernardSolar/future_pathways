@@ -167,15 +167,11 @@ The historical trajectory provides several crucial insights:
 
 4. **Policy Effectiveness**: The minimal impact of three decades of climate negotiations on our actual trajectory suggests the need for more fundamental changes in approach.
 
-5. **Transition Urgency**: The growing gap between our current position and sustainable zones highlights the increasing difficulty of achieving a successful energy transition without dramatic changes in direction.
+5. **Transition Urgency**: Our historical trajectory shows the immense momentum of our current system. Even the unprecedented global disruption of COVID-19 only briefly reduced emissions and material use before they rebounded to previous levels, highlighting how deeply these are embedded in our economic structure.
 
-Perhaps most sobering of all, our historical trajectory reveals the sheer momentum of our current path. Even the unprecedented global shutdown during the COVID-19 pandemic – which caused the largest peacetime disruption to modern industrial civilization – produced only a temporary deviation before emissions and material use rebounded to their previous trajectory. This dramatically illustrates just how deeply embedded our emissions and material use are within our current economic system.
+This serves as a stark warning: transitioning to sustainability will take far more than incremental changes. It demands a fundamental transformation of how we operate as a civilization. Each year of delay widens the gap between our current path and a sustainable future, making the necessary transition steeper and more urgent.
 
-The immediate return to our previous path after such a massive disruption serves as a stark warning: transitioning to a sustainable trajectory will require far more than incremental changes or temporary reductions. It demands a fundamental restructuring of how our civilization operates, and we have precious little time to achieve this transformation. The rapidly widening gap between our current position and any sustainable pathway shows that each year of delay makes the required transition steeper and more difficult to achieve.
-
-As the historical data show, we are not merely failing to reduce emissions and material use – we are actively accelerating in the wrong direction. This means that any successful transition must first overcome this tremendous momentum before it can even begin moving us toward sustainability. It's akin to turning a supertanker: the longer we wait to begin the turn, the more likely we are to miss our chance entirely.
-
-The model makes clear that we face not just a technical challenge, but a civilizational one. The question is no longer simply whether we can develop sustainable technologies and practices – it's whether we can implement them at the necessary scale and speed while maintaining social stability. The historical trajectory suggests this may be the defining challenge of our time, requiring unprecedented levels of coordination, innovation, and societal transformation.
+We are not just failing to reduce emissions and material use—we are accelerating in the wrong direction. In the words of Professor Kevin Anderson: “we are choosing to fail”. Turning this around is like steering a supertanker; the longer we wait, the harder it becomes to avoid disaster. Can we implement sustainable solutions at the necessary scale and speed while maintaining social stability? I think we can, but it is going to be hard. What do you think?
 
 ## The Model as a Discussion Tool
 
