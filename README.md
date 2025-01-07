@@ -3,7 +3,7 @@
 This is a quick start guide, for full details about the visualization see [Future Pathways](docs/future_pathways.md).
 
 ## Introduction
-The Future Pathways visualization presents a three-dimensional analysis of possible trajectories for human civilization, focusing on the interrelationships between economic growth, environmental impact, and resource consumption. This document explains the key components of the visualization and the different pathways it represents.
+The Future Pathways visualization presents a three-dimensional analysis of possible trajectories for human civilization, focusing on the interrelationships between economic growth, environmental impact, and resource consumption. This document explains how to install and run the visualization.
 
 ## The Three Axes
 
