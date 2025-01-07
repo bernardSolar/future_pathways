@@ -1,6 +1,5 @@
 # Future Pathways: Where Are We Going (And Where Have We Been)?
-As society grapples with the challenges of climate change, resource constraints, and economic 
-development, some of the most pressing questions we face are: 
+Humanity and the biosphere face an uncertain future. Climate change, biodiversity loss and the depletion of natural resources are accelerating, forcing us to confront the reality that our current trajectory is unsustainable. As we come to terms and confront these crises, some of the most urgent questions we must answer are:
 - **What futures are actually possible?**
 - **What pathways to the future are open to us?**
 - **What will it take to get there?**
