@@ -167,7 +167,9 @@ The historical trajectory provides several crucial insights:
 
 4. **Policy Effectiveness**: The minimal impact of three decades of climate negotiations on our actual trajectory suggests the need for more fundamental changes in approach.
 
-5. **Transition Urgency**: Our historical trajectory shows the immense momentum of our current system. Even the unprecedented global disruption of COVID-19 only briefly reduced emissions and material use before they rebounded to previous levels, highlighting how deeply these are embedded in our economic structure.
+5. **Transition Urgency**: The growing gap between our current position and sustainable zones highlights the increasing difficulty of achieving a successful energy transition without dramatic changes in direction.
+
+Our historical trajectory shows the immense momentum of our current system. Even the unprecedented global disruption of COVID-19 only briefly reduced emissions and material use before they rebounded to previous levels, highlighting how deeply these are embedded in our economic structure.
 
 This serves as a stark warning: transitioning to sustainability will take far more than incremental changes. It demands a fundamental transformation of how we operate as a civilization. Each year of delay widens the gap between our current path and a sustainable future, making the necessary transition steeper and more urgent.
 
