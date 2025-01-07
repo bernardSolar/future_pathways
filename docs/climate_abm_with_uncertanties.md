@@ -140,3 +140,38 @@ Despite these limitations, the model still provides valuable insights into the d
 
 This also highlights the importance of continuously validating and improving models against real-world data. Future versions could incorporate more sophisticated carbon pricing mechanisms calibrated to actual policy experiences around the world.
 
+Here's a draft of an additional section to follow our carbon pricing afterword:
+
+## Further Model Analysis: The Speed of Emissions Reduction
+
+Our model shows a striking pattern in emissions trajectory: after a brief spike in 2025/2026, emissions decline very rapidly, falling dramatically by 2040. While such a rapid decline would be welcome from a climate perspective, this pattern requires careful scrutiny:
+
+1. Model Prediction vs Reality:
+- Our model shows emissions falling by roughly 80% within 15 years
+- Current real-world emissions are still rising
+- The IPCC and IEA suggest much slower decline rates are likely achievable
+- Most net-zero scenarios show more gradual transitions extending to 2050
+
+2. Real-World Constraints Not Captured:
+- Physical infrastructure lifetime and replacement rates
+- Supply chain limitations for renewable technology
+- Workforce retraining requirements
+- Financial system inertia
+- Political and social resistance to rapid change
+- Industrial process limitations
+
+3. Why Our Model Shows Rapid Decline:
+- Agents can switch technologies instantaneously
+- No implementation delays
+- Perfect availability of renewable alternatives
+- Simplified economic dynamics
+- Strong social influence effects
+- Assumption of smooth technological learning rates
+
+4. Implications:
+- The model usefully demonstrates how social and economic factors can reinforce transition
+- However, it likely underestimates real-world friction and inertia
+- Suggests need for more sophisticated treatment of physical and institutional constraints
+- Highlights importance of early action given implementation delays not captured in model
+
+This rapid emissions decline, while technically possible in our simplified model world, serves as another reminder that ABMs must be interpreted carefully and continuously validated against real-world evidence and constraints.
