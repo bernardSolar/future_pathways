@@ -266,7 +266,7 @@ As we navigate the challenges of climate change and resource constraints, tools 
 
 By making explicit the trade-offs and relationships between growth, emissions, and material use, while also showing our actual historical trajectory, the model helps us move beyond simplified debates and toward a more nuanced understanding of the challenges and opportunities ahead. Whether we ultimately follow a path of managed descent, ambitious technological transformation, or something in between, understanding the full range of possibilities - and our current direction - is crucial for making informed decisions about our collective future.
 
-The use of this visualisation is made freely available under the [] licence to use how you wish, but more 
+The use of this visualisation is made freely available under the MIT licence to use how you wish, but more 
 importantly to share so that others can also use it.
 
 If you would like to get involved or provide feedback, please contact the author at:
