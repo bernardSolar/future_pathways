@@ -55,7 +55,7 @@ python3 future_pathways.py
 ```
 
 #### IDE
-Alternatively, you can open the project in an IDE like PyCharm and run `energy_transition_pathways.py` directly.
+Alternatively, you can open the project in an IDE like PyCharm and run `python3 future_pathways.py` directly.
 
 ### Support
 
