@@ -58,9 +58,9 @@ class PathwayVisualizer:
 
         # Historical data points from 1995 to 2024
         self.historical_years = np.array([1995, 2000, 2005, 2010, 2015, 2020, 2024])
-        self.historical_emissions = np.array([23.0, 25.5, 30.0, 33.5, 36.5, 43.0, 50.0])  # GT CO2e/yr
-        self.historical_growth = np.array([3.3, 4.4, 3.9, 4.3, 2.9, -3.3, 2.5])  # %/yr
-        self.historical_materials = np.array([45.0, 54.0, 65.0, 78.0, 88.0, 98.0, 106.0])  # GT/yr
+        self.historical_emissions = np.array([23.0, 25.5, 30.0, 33.5, 36.5, 43.0, 50.0])  # Gt CO2e
+        self.historical_growth = np.array([3.3, 4.4, 3.9, 4.3, 2.9, -3.3, 2.5])  # %
+        self.historical_materials = np.array([45.0, 54.0, 65.0, 78.0, 88.0, 98.0, 106.0])  # Gt
 
         # Initialize zones configuration
         self.zones = {
@@ -328,9 +328,9 @@ class PathwayVisualizer:
 
     def finalize_plot(self):
         """Set up final plot parameters and styling"""
-        self.ax.set_xlabel('CO2e Emissions (GT/yr)')
-        self.ax.set_zlabel('Growth (%/yr)')
-        self.ax.set_ylabel('Material Use (GT/yr)')
+        self.ax.set_xlabel('CO2e Emissions (Gt)')
+        self.ax.set_zlabel('Growth (%)')
+        self.ax.set_ylabel('Material Use (Gt)')
         self.ax.set_title('Future Pathways: 2024-2060', fontsize=18)
 
         for zone in self.zones.values():
