@@ -80,45 +80,36 @@ class FuturePathwaysApp:
             )
         }
 
-    def _calculate_path_coordinates(self, path_name: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Calculate coordinates for a given pathway"""
-        if path_name == 'Historical Trajectory':
-            return (self.historical_materials, self.historical_emissions, self.historical_growth)
-
-        elif path_name == 'Business As Usual':
+    def _calculate_future_coordinates(self, path_name: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Calculate future coordinates for a given pathway"""
+        if path_name == 'Business As Usual':
             x = self.current_pos[2] + 54 * self.t  # Materials
             y = self.current_pos[0] + 10 * self.t  # Emissions
             z = self.current_pos[1] - 3.5 * self.t  # Growth
-
         elif path_name == 'Degrowth (Hickel)':
-            x = self.current_pos[2] - 56 * self.t  # Materials
-            y = self.current_pos[0] - 60 * self.t  # Emissions
-            z = self.current_pos[1] - 4 * self.t + 1.5 * self.t ** 2  # Growth
-
+            x = self.current_pos[2] - 56 * self.t
+            y = self.current_pos[0] - 60 * self.t
+            z = self.current_pos[1] - 4 * self.t + 1.5 * self.t ** 2
         elif path_name == 'Great Simplification (Hagens)':
-            x = self.current_pos[2] * np.exp(-1.5 * self.t)  # Materials
-            y = self.current_pos[0] * np.exp(-2 * self.t)  # Emissions
-            z = self.current_pos[1] - 3 * self.t - 1.5 * self.t ** 2  # Growth
-
+            x = self.current_pos[2] * np.exp(-1.5 * self.t)
+            y = self.current_pos[0] * np.exp(-2 * self.t)
+            z = self.current_pos[1] - 3 * self.t - 1.5 * self.t ** 2
         elif path_name == 'Eco-modernist Utopia':
-            x = self.current_pos[2] + 40 * self.t * np.exp(-3 * self.t) - 40 * self.t  # Materials
-            y = self.current_pos[0] - 65 * self.t - 5 * self.t ** 2  # Emissions
-            z = self.current_pos[1] + 2 * self.t ** 2  # Growth
-
+            x = self.current_pos[2] + 40 * self.t * np.exp(-3 * self.t) - 40 * self.t
+            y = self.current_pos[0] - 65 * self.t - 5 * self.t ** 2
+            z = self.current_pos[1] + 2 * self.t ** 2
         elif path_name == 'Way et al. Fast Transition':
-            x = self.current_pos[2] + 30 * self.t * np.exp(-self.t) - 20 * self.t ** 2  # Materials
-            y = self.current_pos[0] * np.exp(-0.15 * (self.t * 36)) - 5 * self.t ** 2  # Emissions
-            z = self.current_pos[1] + 0.3 * self.t + 0.7 * self.t ** 2  # Growth
-
+            x = self.current_pos[2] + 30 * self.t * np.exp(-self.t) - 20 * self.t ** 2
+            y = self.current_pos[0] * np.exp(-0.15 * (self.t * 36)) - 5 * self.t ** 2
+            z = self.current_pos[1] + 0.3 * self.t + 0.7 * self.t ** 2
         elif path_name == 'Way et al. Slow Transition':
-            x = self.current_pos[2] + 15 * self.t + 10 * self.t ** 2  # Materials
-            y = self.current_pos[0] * np.exp(-0.06 * (self.t * 36))  # Emissions
-            z = self.current_pos[1] + 0.25 * self.t - 0.5 * self.t ** 2  # Growth
-
+            x = self.current_pos[2] + 15 * self.t + 10 * self.t ** 2
+            y = self.current_pos[0] * np.exp(-0.06 * (self.t * 36))
+            z = self.current_pos[1] + 0.25 * self.t - 0.5 * self.t ** 2
         else:  # Way et al. No Transition
-            x = self.current_pos[2] + 25 * self.t + 15 * self.t ** 2  # Materials
-            y = self.current_pos[0] + 10 * self.t + 5 * self.t ** 2  # Emissions
-            z = self.current_pos[1] - self.t - 0.5 * self.t ** 2  # Growth
+            x = self.current_pos[2] + 25 * self.t + 15 * self.t ** 2
+            y = self.current_pos[0] + 10 * self.t + 5 * self.t ** 2
+            z = self.current_pos[1] - self.t - 0.5 * self.t ** 2
 
         return x, y, z
 
@@ -138,12 +129,12 @@ class FuturePathwaysApp:
 
         # Add all pathways
         for path_name, path_config in self.paths.items():
-            x, y, z = self._calculate_path_coordinates(path_name)
-
-            # Special handling for Historical Trajectory
             if path_name == 'Historical Trajectory':
+                # Historical trajectory in a single trace
                 fig.add_trace(go.Scatter3d(
-                    x=x, y=y, z=z,
+                    x=self.historical_materials,
+                    y=self.historical_emissions,
+                    z=self.historical_growth,
                     mode='lines+markers+text',
                     line=dict(color=path_config.color, width=2),
                     marker=dict(
@@ -156,7 +147,10 @@ class FuturePathwaysApp:
                     name=path_name
                 ))
             else:
-                # Add path line
+                # Calculate future coordinates
+                x, y, z = self._calculate_future_coordinates(path_name)
+
+                # Add continuous line trace
                 fig.add_trace(go.Scatter3d(
                     x=x, y=y, z=z,
                     mode='lines',
@@ -165,28 +159,7 @@ class FuturePathwaysApp:
                     legendgroup=path_name
                 ))
 
-                # Add decade markers and labels
-                decade_indices = range(0, len(self.years), 10)
-                if len(decade_indices) > 0:
-                    fig.add_trace(go.Scatter3d(
-                        x=x[decade_indices],
-                        y=y[decade_indices],
-                        z=z[decade_indices],
-                        mode='markers+text',
-                        marker=dict(
-                            symbol=path_config.marker,
-                            size=4,
-                            color=path_config.color
-                        ),
-                        text=[f'{int(self.years[i])}' for i in decade_indices],
-                        textposition='top right',
-                        name=path_name,
-                        legendgroup=path_name,
-                        showlegend=False
-                    ))
-
-            # Add markers and year labels at decade intervals
-            if path_name != 'Historical Trajectory':
+                # Add decade markers
                 decade_indices = range(0, len(self.years), 10)
                 fig.add_trace(go.Scatter3d(
                     x=x[decade_indices],
@@ -200,6 +173,7 @@ class FuturePathwaysApp:
                     ),
                     text=[f'{int(self.years[i])}' for i in decade_indices],
                     textposition='top right',
+                    legendgroup=path_name,
                     showlegend=False
                 ))
 
@@ -242,7 +216,7 @@ class FuturePathwaysApp:
             html.Div([
                 html.H3('Controls:'),
                 html.P('Use mouse to rotate, zoom, and pan the 3D view'),
-                html.P('More controls coming soon...')
+                html.P('Click on legend items to toggle pathways')
             ])
         ])
 
