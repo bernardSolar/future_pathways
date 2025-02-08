@@ -156,13 +156,34 @@ class FuturePathwaysApp:
                     name=path_name
                 ))
             else:
-                # Add path line for other paths
+                # Add path line
                 fig.add_trace(go.Scatter3d(
                     x=x, y=y, z=z,
                     mode='lines',
                     line=dict(color=path_config.color, width=2),
-                    name=path_name
+                    name=path_name,
+                    legendgroup=path_name
                 ))
+
+                # Add decade markers and labels
+                decade_indices = range(0, len(self.years), 10)
+                if len(decade_indices) > 0:
+                    fig.add_trace(go.Scatter3d(
+                        x=x[decade_indices],
+                        y=y[decade_indices],
+                        z=z[decade_indices],
+                        mode='markers+text',
+                        marker=dict(
+                            symbol=path_config.marker,
+                            size=4,
+                            color=path_config.color
+                        ),
+                        text=[f'{int(self.years[i])}' for i in decade_indices],
+                        textposition='top right',
+                        name=path_name,
+                        legendgroup=path_name,
+                        showlegend=False
+                    ))
 
             # Add markers and year labels at decade intervals
             if path_name != 'Historical Trajectory':
