@@ -7,6 +7,16 @@ from typing import Tuple, List, Dict, Optional
 
 
 @dataclass
+class ZoneConfig:
+    """Configuration for a transition zone"""
+    name: str
+    color: str
+    growth_range: Tuple[float, float]
+    material_range: Tuple[float, float]
+    emission_range: Tuple[float, float]
+
+
+@dataclass
 class PathConfig:
     """Configuration for a pathway"""
     name: str
@@ -28,12 +38,46 @@ class FuturePathwaysApp:
         self.historical_growth = np.array([3.3, 4.4, 3.9, 4.3, 2.9, -3.3, 2.5])
         self.historical_materials = np.array([45.0, 54.0, 65.0, 78.0, 88.0, 98.0, 106.0])
 
-        # Initialize paths configuration
+        # Initialize zones and paths configurations
+        self.zones = self._initialize_zones()
         self.paths = self._initialize_paths()
 
         # Initialize app
         self.app = dash.Dash(__name__)
         self.setup_layout()
+
+    def _initialize_zones(self) -> Dict[str, ZoneConfig]:
+        """Initialize zone configurations"""
+        return {
+            'Energy Transition Zone': ZoneConfig(
+                name='Energy Transition Zone',
+                color='green',
+                growth_range=(2.5, 5),
+                material_range=(0, 106),
+                emission_range=(-20, 50)
+            ),
+            'Intermediate Zone': ZoneConfig(
+                name='Intermediate Zone',
+                color='orange',
+                growth_range=(0, 2.5),
+                material_range=(0, 106),
+                emission_range=(-20, 50)
+            ),
+            'Descent Zone': ZoneConfig(
+                name='Descent Zone',
+                color='red',
+                growth_range=(-5, 0),
+                material_range=(0, 106),
+                emission_range=(-20, 50)
+            ),
+            'Future Materials Use': ZoneConfig(
+                name='Future Materials Use',
+                color='blue',
+                growth_range=(-5, 5),
+                material_range=(106, 160),
+                emission_range=(-20, 50)
+            )
+        }
 
     def _initialize_paths(self) -> Dict[str, PathConfig]:
         """Initialize pathway configurations"""
@@ -80,6 +124,71 @@ class FuturePathwaysApp:
             )
         }
 
+    def _create_zone_surface(self, zone: ZoneConfig) -> List[go.Surface]:
+        """Create surface traces for a transition zone"""
+        surfaces = []
+
+        # Create meshgrid for the zone
+        emissions = np.linspace(zone.emission_range[0], zone.emission_range[1], 20)
+        materials = np.linspace(zone.material_range[0], zone.material_range[1], 20)
+        emissions_grid, materials_grid = np.meshgrid(emissions, materials)
+
+        # Create horizontal surfaces at zone boundaries
+        for growth in zone.growth_range:
+            growth_grid = np.full_like(emissions_grid, growth)
+            surfaces.append(
+                go.Surface(
+                    x=materials_grid,
+                    y=emissions_grid,
+                    z=growth_grid,
+                    showscale=False,
+                    opacity=0.1,
+                    colorscale=[[0, zone.color], [1, zone.color]],
+                    name=zone.name,
+                    legendgroup=f"zone_{zone.name}",
+                    showlegend=True if growth == zone.growth_range[0] else False
+                )
+            )
+
+        # Create vertical surfaces at material boundaries
+        growth_values = np.linspace(zone.growth_range[0], zone.growth_range[1], 20)
+        for material in [zone.material_range[0], zone.material_range[1]]:
+            material_grid = np.full((20, 20), material)
+            emissions_grid, growth_grid = np.meshgrid(emissions, growth_values)
+            surfaces.append(
+                go.Surface(
+                    x=material_grid,
+                    y=emissions_grid,
+                    z=growth_grid,
+                    showscale=False,
+                    opacity=0.1,
+                    colorscale=[[0, zone.color], [1, zone.color]],
+                    name=zone.name,
+                    legendgroup=f"zone_{zone.name}",
+                    showlegend=False
+                )
+            )
+
+        # Create vertical surfaces at emission boundaries
+        for emission in [zone.emission_range[0], zone.emission_range[1]]:
+            emission_grid = np.full((20, 20), emission)
+            materials_grid, growth_grid = np.meshgrid(materials, growth_values)
+            surfaces.append(
+                go.Surface(
+                    x=materials_grid,
+                    y=emission_grid,
+                    z=growth_grid,
+                    showscale=False,
+                    opacity=0.1,
+                    colorscale=[[0, zone.color], [1, zone.color]],
+                    name=zone.name,
+                    legendgroup=f"zone_{zone.name}",
+                    showlegend=False
+                )
+            )
+
+        return surfaces
+
     def _calculate_future_coordinates(self, path_name: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Calculate future coordinates for a given pathway"""
         if path_name == 'Business As Usual':
@@ -116,6 +225,12 @@ class FuturePathwaysApp:
     def create_3d_figure(self):
         """Create the main 3D scatter plot"""
         fig = go.Figure()
+
+        # Add all zone surfaces
+        for zone_name, zone_config in self.zones.items():
+            surfaces = self._create_zone_surface(zone_config)
+            for surface in surfaces:
+                fig.add_trace(surface)
 
         # Add current position marker
         fig.add_trace(go.Scatter3d(
