@@ -295,9 +295,9 @@ class FuturePathwaysApp:
         # Set up the layout
         fig.update_layout(
             scene=dict(
-                xaxis_title='Material Use (GT/yr)',
-                yaxis_title='CO2e Emissions (GT/yr)',
-                zaxis_title='Growth (%/yr)',
+                xaxis_title='Material Use (GT)',
+                yaxis_title='CO2e Emissions (GT)',
+                zaxis_title='Growth (%)',
                 xaxis=dict(range=[0, 200]),
                 yaxis=dict(range=[-20, 60]),
                 zaxis=dict(range=[-5, 5]),
