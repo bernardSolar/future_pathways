@@ -284,7 +284,7 @@ class FuturePathwaysApp:
                     y=malm_emissions,
                     z=malm_growth,
                     mode='lines',
-                    line=dict(color=path_config.color, width=2, dash='dash'),
+                    line=dict(color=path_config.color, width=4, dash='dash'),
                     name=path_name,
                     legendgroup=path_name
                 ))
