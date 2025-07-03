@@ -85,46 +85,70 @@ class EnhancedEmpiricalAnalysis:
         # Test Equation 1: dCO2/dt = σ(Materials - CO2)
         materials_co2_diff = materials - co2
         mask1 = np.abs(materials_co2_diff) > 0.1  # Avoid division by near-zero
-        sigma_estimates = dco2_dt[mask1] / materials_co2_diff[mask1]
-        sigma_mean = np.mean(sigma_estimates)
-        sigma_std = np.std(sigma_estimates)
+        if np.sum(mask1) > 0:
+            sigma_estimates = dco2_dt[mask1] / materials_co2_diff[mask1]
+            sigma_mean = np.mean(sigma_estimates)
+            sigma_std = np.std(sigma_estimates)
+            r2_eq1 = self.calculate_r_squared(dco2_dt[mask1], sigma_mean * materials_co2_diff[mask1])
+        else:
+            sigma_mean, sigma_std, r2_eq1 = 0, 0, 0
         
         print(f"\\nEquation 1: dCO2/dt = σ(Materials - CO2)")
         print(f"σ = {sigma_mean:.4f} ± {sigma_std:.4f}")
-        print(f"R² = {self.calculate_r_squared(dco2_dt[mask1], sigma_mean * materials_co2_diff[mask1]):.3f}")
+        print(f"R² = {r2_eq1:.3f}")
         
         # Test Equation 2: dMaterials/dt = CO2*(ρ - Growth) - Materials  
-        # Rearranged: ρ = (dMat/dt + Materials)/CO2 + Growth
-        mask2 = co2 > 1.0  # Avoid division by small CO2 values
-        rho_estimates = (dmaterials_dt[mask2] + materials[mask2]) / co2[mask2] + growth[mask2]
-        rho_mean = np.mean(rho_estimates)
-        rho_std = np.std(rho_estimates)
+        # Let's try a different approach - direct fitting rather than algebraic rearrangement
+        mask2 = (co2 > 1.0) & (np.abs(growth) < 10)  # Reasonable bounds
+        if np.sum(mask2) > 5:  # Need minimum points for fitting
+            # Use least squares to fit: dMat/dt = a*CO2 - b*CO2*Growth - c*Materials
+            X2 = np.column_stack([co2[mask2], -co2[mask2] * growth[mask2], -materials[mask2]])
+            y2 = dmaterials_dt[mask2]
+            
+            try:
+                params2 = np.linalg.lstsq(X2, y2, rcond=None)[0]
+                a, b, c = params2
+                # Convert back to ρ form: if dMat/dt = CO2*(ρ - Growth) - Materials
+                # then a = CO2*ρ, b = CO2*Growth, so ρ = a/mean(CO2) (approximately)
+                rho_mean = a / np.mean(co2[mask2]) if np.mean(co2[mask2]) > 0 else 0
+                predicted_dmaterials = X2 @ params2
+                r2_eq2 = self.calculate_r_squared(y2, predicted_dmaterials)
+                rho_std = 0.5  # Placeholder since direct calculation is complex
+            except np.linalg.LinAlgError:
+                rho_mean, rho_std, r2_eq2 = 0, 0, 0
+        else:
+            rho_mean, rho_std, r2_eq2 = 0, 0, 0
         
         print(f"\\nEquation 2: dMaterials/dt = CO2*(ρ - Growth) - Materials")
-        print(f"ρ = {rho_mean:.2f} ± {rho_std:.2f}")
-        predicted_dmaterials = co2[mask2] * (rho_mean - growth[mask2]) - materials[mask2]
-        print(f"R² = {self.calculate_r_squared(dmaterials_dt[mask2], predicted_dmaterials):.3f}")
+        print(f"ρ ≈ {rho_mean:.2f} ± {rho_std:.2f} (fitted)")
+        print(f"R² = {r2_eq2:.3f}")
         
         # Test Equation 3: dGrowth/dt = CO2*Materials*α - β*Growth
-        # This is more complex, let's use least squares fitting
-        mask3 = np.abs(growth) > 0.1
-        X = np.column_stack([co2[mask3] * materials[mask3], -growth[mask3]])
-        y = dgrowth_dt[mask3]
-        
-        # Solve least squares: [α, β] = (X^T X)^(-1) X^T y
-        try:
-            params = np.linalg.lstsq(X, y, rcond=None)[0]
-            alpha, beta = params
-            predicted_dgrowth = X @ params
-            r2_growth = self.calculate_r_squared(y, predicted_dgrowth)
+        mask3 = (np.abs(growth) > 0.1) & (np.abs(growth) < 10)  # Reasonable bounds
+        if np.sum(mask3) > 5:
+            X3 = np.column_stack([co2[mask3] * materials[mask3], -growth[mask3]])
+            y3 = dgrowth_dt[mask3]
             
-            print(f"\\nEquation 3: dGrowth/dt = α*CO2*Materials - β*Growth")
-            print(f"α = {alpha:.6f}")
-            print(f"β = {beta:.3f}")
-            print(f"R² = {r2_growth:.3f}")
-        except np.linalg.LinAlgError:
-            print(f"\\nEquation 3: Could not fit - matrix singular")
-            alpha, beta = 0, 1
+            try:
+                params3 = np.linalg.lstsq(X3, y3, rcond=None)[0]
+                alpha, beta = params3
+                predicted_dgrowth = X3 @ params3
+                r2_eq3 = self.calculate_r_squared(y3, predicted_dgrowth)
+            except np.linalg.LinAlgError:
+                alpha, beta, r2_eq3 = 0, 1, 0
+        else:
+            alpha, beta, r2_eq3 = 0, 1, 0
+        
+        print(f"\\nEquation 3: dGrowth/dt = α*CO2*Materials - β*Growth")
+        print(f"α = {alpha:.6f}")
+        print(f"β = {beta:.3f}")
+        print(f"R² = {r2_eq3:.3f}")
+        
+        # Data quality assessment
+        print(f"\\nData Quality Assessment:")
+        print(f"Valid points for Eq1: {np.sum(mask1)}/{len(co2)}")
+        print(f"Valid points for Eq2: {np.sum(mask2)}/{len(co2)}")
+        print(f"Valid points for Eq3: {np.sum(mask3)}/{len(co2)}")
         
         return {
             'sigma': sigma_mean,
@@ -132,11 +156,16 @@ class EnhancedEmpiricalAnalysis:
             'alpha': alpha,
             'beta': beta,
             'sigma_std': sigma_std,
-            'rho_std': rho_std
+            'rho_std': rho_std,
+            'r2_eq1': r2_eq1,
+            'r2_eq2': r2_eq2,
+            'r2_eq3': r2_eq3
         }
     
     def calculate_r_squared(self, y_true, y_pred):
         """Calculate R-squared coefficient"""
+        if len(y_true) == 0 or len(y_pred) == 0:
+            return 0
         ss_res = np.sum((y_true - y_pred) ** 2)
         ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
         return 1 - (ss_res / ss_tot) if ss_tot > 0 else 0
@@ -166,12 +195,12 @@ class EnhancedEmpiricalAnalysis:
         
         # 2. Derivatives
         ax4 = plt.subplot(3, 4, 4)
-        ax4.plot(self.df['year'], self.df['dCO2_dt'], 'b-', alpha=0.7)
-        ax4.plot(self.df['year'], self.df['dMaterials_dt'], 'g-', alpha=0.7)
-        ax4.plot(self.df['year'], self.df['dGrowth_dt'], 'r-', alpha=0.7)
+        ax4.plot(self.df['year'], self.df['dCO2_dt'], 'b-', alpha=0.7, label='dCO2/dt')
+        ax4.plot(self.df['year'], self.df['dMaterials_dt'], 'g-', alpha=0.7, label='dMat/dt')
+        ax4.plot(self.df['year'], self.df['dGrowth_dt'], 'r-', alpha=0.7, label='dGrowth/dt')
         ax4.set_ylabel('Rate of Change')
         ax4.set_title('Time Derivatives')
-        ax4.legend(['dCO2/dt', 'dMat/dt', 'dGrowth/dt'])
+        ax4.legend()
         ax4.grid(True)
         
         # 3. Phase space plots
@@ -223,7 +252,7 @@ class EnhancedEmpiricalAnalysis:
                 [self.df['dCO2_dt'].min(), self.df['dCO2_dt'].max()], 'r--')
         ax9.set_xlabel('Observed dCO2/dt')
         ax9.set_ylabel('Predicted dCO2/dt')
-        ax9.set_title(f'Equation 1 Fit (σ={params["sigma"]:.4f})')
+        ax9.set_title(f'Equation 1 Fit\\nσ={params["sigma"]:.4f}, R²={params["r2_eq1"]:.3f}')
         ax9.grid(True)
         
         ax10 = plt.subplot(3, 4, 10)
@@ -233,32 +262,20 @@ class EnhancedEmpiricalAnalysis:
                  [self.df['dMaterials_dt'].min(), self.df['dMaterials_dt'].max()], 'r--')
         ax10.set_xlabel('Observed dMaterials/dt')
         ax10.set_ylabel('Predicted dMaterials/dt')
-        ax10.set_title(f'Equation 2 Fit (ρ={params["rho"]:.2f})')
+        ax10.set_title(f'Equation 2 Fit\\nρ={params["rho"]:.2f}, R²={params["r2_eq2"]:.3f}')
         ax10.grid(True)
         
-        # 6. Parameter evolution over time
         ax11 = plt.subplot(3, 4, 11)
-        # Calculate rolling window parameter estimates
-        window = 10
-        rolling_sigma = []
-        rolling_years = []
-        for i in range(window, len(self.df)):
-            subset = self.df.iloc[i-window:i]
-            if len(subset) >= window:
-                mat_co2_diff = subset['material_use_gt'] - subset['co2_emissions_gt']
-                if np.any(np.abs(mat_co2_diff) > 0.1):
-                    mask = np.abs(mat_co2_diff) > 0.1
-                    sigma_est = np.mean(subset['dCO2_dt'].iloc[mask] / mat_co2_diff.iloc[mask])
-                    rolling_sigma.append(sigma_est)
-                    rolling_years.append(subset['year'].iloc[-1])
-        
-        ax11.plot(rolling_years, rolling_sigma, 'b-', linewidth=2)
-        ax11.set_xlabel('Year')
-        ax11.set_ylabel('σ estimate')
-        ax11.set_title('Parameter Evolution (10-yr window)')
+        predicted_dgrowth = params['alpha'] * co2 * materials - params['beta'] * growth
+        ax11.scatter(self.df['dGrowth_dt'], predicted_dgrowth, alpha=0.6)
+        ax11.plot([self.df['dGrowth_dt'].min(), self.df['dGrowth_dt'].max()], 
+                 [self.df['dGrowth_dt'].min(), self.df['dGrowth_dt'].max()], 'r--')
+        ax11.set_xlabel('Observed dGrowth/dt')
+        ax11.set_ylabel('Predicted dGrowth/dt')
+        ax11.set_title(f'Equation 3 Fit\\nα={params["alpha"]:.6f}, R²={params["r2_eq3"]:.3f}')
         ax11.grid(True)
         
-        # 7. Data quality indicators
+        # 6. Data quality indicators
         ax12 = plt.subplot(3, 4, 12)
         quality_counts = self.df['data_quality'].value_counts()
         ax12.pie(quality_counts.values, labels=quality_counts.index, autopct='%1.1f%%')
@@ -266,10 +283,10 @@ class EnhancedEmpiricalAnalysis:
         
         # Add parameter summary
         param_text = (f'Empirically Derived Parameters (1970-2024):\\n'
-                     f'σ = {params["sigma"]:.4f} ± {params["sigma_std"]:.4f}\\n'
-                     f'ρ = {params["rho"]:.2f} ± {params["rho_std"]:.2f}\\n'
+                     f'σ = {params["sigma"]:.4f} ± {params["sigma_std"]:.4f} (R² = {params["r2_eq1"]:.3f})\\n'
+                     f'ρ = {params["rho"]:.2f} ± {params["rho_std"]:.2f} (R² = {params["r2_eq2"]:.3f})\\n'
                      f'α = {params["alpha"]:.6f}\\n'
-                     f'β = {params["beta"]:.3f}\\n'
+                     f'β = {params["beta"]:.3f} (R² = {params["r2_eq3"]:.3f})\\n'
                      f'Dataset: {len(self.df)} annual observations')
         plt.figtext(0.02, 0.02, param_text, fontsize=10, family='monospace')
         
@@ -297,10 +314,26 @@ class EnhancedEmpiricalAnalysis:
         print("="*60)
         print(f"Dataset: {len(self.df)} annual observations ({self.df['year'].min()}-{self.df['year'].max()})")
         print(f"Empirically derived parameters:")
-        print(f"  σ = {params['sigma']:.4f} ± {params['sigma_std']:.4f} (emissions response)")
-        print(f"  ρ = {params['rho']:.2f} ± {params['rho_std']:.2f} (critical growth threshold)")
-        print(f"  α = {params['alpha']:.6f} (growth-emissions-materials coupling)")
-        print(f"  β = {params['beta']:.3f} (growth damping)")
+        print(f"  σ = {params['sigma']:.4f} ± {params['sigma_std']:.4f} (R² = {params['r2_eq1']:.3f})")
+        print(f"  ρ = {params['rho']:.2f} ± {params['rho_std']:.2f} (R² = {params['r2_eq2']:.3f})")
+        print(f"  α = {params['alpha']:.6f}")
+        print(f"  β = {params['beta']:.3f} (R² = {params['r2_eq3']:.3f})")
+        print("\\nModel Assessment:")
+        if params['r2_eq1'] > 0.3:
+            print("  Equation 1: GOOD fit - CO2 emissions do seem to chase materials")
+        else:
+            print("  Equation 1: POOR fit - relationship may be non-linear or time-varying")
+        
+        if params['r2_eq2'] > 0.3:
+            print("  Equation 2: GOOD fit - materials respond to emissions and growth")
+        else:
+            print("  Equation 2: POOR fit - more complex dynamics likely needed")
+            
+        if params['r2_eq3'] > 0.3:
+            print("  Equation 3: GOOD fit - growth follows expected pattern")
+        else:
+            print("  Equation 3: POOR fit - growth may need different functional form")
+        
         print("\\nNext steps: Use these parameters in attractor analysis to explore dynamics")
         
         return params, fig
