@@ -271,7 +271,8 @@ class FuturePathwaysApp:
                     mode='lines',
                     line=dict(color=path_config.color, width=2),
                     name=path_name,
-                    legendgroup=path_name
+                    legendgroup=path_name,
+                    visible = "legendonly"
                 ))
 
                 # Add decade markers
@@ -289,7 +290,8 @@ class FuturePathwaysApp:
                     text=[f'{int(self.years[i])}' for i in decade_indices],
                     textposition='top right',
                     legendgroup=path_name,
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 ))
 
         # Set up the layout

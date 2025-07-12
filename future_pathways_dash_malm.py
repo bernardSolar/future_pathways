@@ -74,8 +74,15 @@ class FuturePathwaysApp:
                 name='Future Materials Use',
                 color='blue',
                 growth_range=(-5, 5),
-                material_range=(106, 160),
+                material_range=(106, 200),
                 emission_range=(-20, 50)
+            ),
+            'Overshoot': ZoneConfig(
+                name='Overshoot',
+                color='magenta',
+                growth_range=(-5, 5),
+                material_range=(106, 200),
+                emission_range=(50, 80)
             )
         }
 
@@ -156,7 +163,8 @@ class FuturePathwaysApp:
                     colorscale=[[0, zone.color], [1, zone.color]],
                     name=zone.name,
                     legendgroup=f"zone_{zone.name}",
-                    showlegend=True if growth == zone.growth_range[0] else False
+                    showlegend=True if growth == zone.growth_range[0] else False,
+                    visible="legendonly"
                 )
             )
 
@@ -175,7 +183,8 @@ class FuturePathwaysApp:
                     colorscale=[[0, zone.color], [1, zone.color]],
                     name=zone.name,
                     legendgroup=f"zone_{zone.name}",
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 )
             )
 
@@ -193,7 +202,8 @@ class FuturePathwaysApp:
                     colorscale=[[0, zone.color], [1, zone.color]],
                     name=zone.name,
                     legendgroup=f"zone_{zone.name}",
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 )
             )
 
@@ -269,14 +279,15 @@ class FuturePathwaysApp:
                     ),
                     text=[f'{int(year)}' for year in self.historical_years],
                     textposition='top right',
-                    name=path_name
+                    name=path_name,
+                    visible="legendonly"
                 ))
             elif path_name == 'Malm Overshoot Scenario':
                 # Define the discrete data points for the Malm scenario
                 malm_years = np.array([2024, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100])
                 malm_materials = np.array([106, 110, 115, 120, 100, 90, 85, 80, 75])
                 malm_emissions = np.array([50, 55, 65, 65, 30, 0, -10, -15, -20])
-                malm_growth   = np.array([2.5, 2.0, 1.8, 1.5, 0.5, 0.0, 0.5, 1.0, 1.0])
+                malm_growth   = np.array([2.5, 2.0, 1.8, 1.5, 0.5, 0.0, 0.5, 1.0, 1.5])
 
                 # Add continuous line trace for the Malm scenario (dashed style)
                 fig.add_trace(go.Scatter3d(
@@ -286,7 +297,8 @@ class FuturePathwaysApp:
                     mode='lines',
                     line=dict(color=path_config.color, width=4, dash='dash'),
                     name=path_name,
-                    legendgroup=path_name
+                    legendgroup=path_name,
+                    visible="legendonly"
                 ))
                 # Add markers and text for the Malm scenario
                 fig.add_trace(go.Scatter3d(
@@ -302,7 +314,8 @@ class FuturePathwaysApp:
                     text=[str(year) for year in malm_years],
                     textposition='top right',
                     legendgroup=path_name,
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 ))
             elif path_name == 'Economic and Infrastructural Inertia':
                 # Define the discrete data points for the inertia pathway
@@ -319,7 +332,8 @@ class FuturePathwaysApp:
                     mode='lines',
                     line=dict(color=path_config.color, width=2),
                     name=path_name,
-                    legendgroup=path_name
+                    legendgroup=path_name,
+                    visible="legendonly"
                 ))
                 # Add markers and text for the inertia pathway
                 fig.add_trace(go.Scatter3d(
@@ -335,7 +349,8 @@ class FuturePathwaysApp:
                     text=[str(year) for year in inertia_years],
                     textposition='top right',
                     legendgroup=path_name,
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 ))
             else:
                 # For all other pathways, calculate future coordinates continuously
@@ -347,7 +362,8 @@ class FuturePathwaysApp:
                     mode='lines',
                     line=dict(color=path_config.color, width=2),
                     name=path_name,
-                    legendgroup=path_name
+                    legendgroup=path_name,
+                    visible="legendonly"
                 ))
 
                 # Add decade markers
@@ -365,11 +381,14 @@ class FuturePathwaysApp:
                     text=[f'{int(self.years[i])}' for i in decade_indices],
                     textposition='top right',
                     legendgroup=path_name,
-                    showlegend=False
+                    showlegend=False,
+                    visible="legendonly"
                 ))
 
         # Set up the layout; note that the CO₂e axis is extended to 80 Gt
         fig.update_layout(
+            width=2000,
+            height=1000,
             scene=dict(
                 xaxis_title='Material Use (GT)',
                 yaxis_title='CO₂e Emissions (GT)',
@@ -381,7 +400,8 @@ class FuturePathwaysApp:
                     eye=dict(x=1.5, y=1.5, z=1.5)
                 )
             ),
-            title='Future Pathways: 2024-2100',
+            margin=dict(l=50, r=50, t=50, b=50),
+            title='Toggle Pathways and Zones:',
             showlegend=True,
             legend=dict(
                 yanchor="top",
